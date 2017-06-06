@@ -1,0 +1,41 @@
+﻿/*------------------------
+sp_help VwGPManufacturingOrderProcesses
+------------------------*/
+Name,Owner,Type,Created_datetime
+VwGPManufacturingOrderProcesses,dbo,view,2010-02-10 15:41:44.160
+
+ 
+ 
+Column_name,Type,Computed,Length,Prec,Scale,Nullable,TrimTrailingBlanks,FixedLenNullInSource,Collation
+mo_id,varchar,no,31,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+sequence_id,char,no,11,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+parallel_seq_id,char,no,11,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+next_seq_id,char,no,11,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+routing_description,char,no,101,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+wc_id,char,no,11,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+wc_description,char,no,31,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+operation_id,char,no,7,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+machine_id,char,no,11,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+setup_hrs,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+machine_hrs,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+run_hrs,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+labor_hrs,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+cycle_hrs,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+notes,text,no,16,     ,     ,yes,(n/a),(n/a),SQL_Latin1_General_CP1_CI_AS
+closed_date,datetime,no,8,     ,     ,no,(n/a),(n/a),NULL
+closed_by,char,no,31,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+done_flag,tinyint,no,1,3    ,0    ,no,(n/a),(n/a),NULL
+
+ 
+Identity,Seed,Increment,Not For Replication
+No identity column defined.,NULL,NULL,NULL
+
+ 
+RowGuidCol
+No rowguidcol column defined.
+
+ 
+No constraints are defined on object 'VwGPManufacturingOrderProcesses', or you do not have permissions.
+ 
+No foreign keys reference table 'VwGPManufacturingOrderProcesses', or you do not have permissions on referencing tables.
+The object 'VwGPManufacturingOrderProcesses' does not have any indexes, or you do not have permissions.

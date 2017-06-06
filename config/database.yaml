@@ -1,0 +1,16 @@
+production: &prod
+  adapter: 'tinytds'
+  host: 'localhost'
+  database: 'QUPID'
+  username: 'vimana'
+  password: 'password'
+
+debug: *prod
+
+test:
+  adapter: 'tinytds'
+  host: 'localhost'
+  database: 'QUPID_test'
+  username: 'vimana'
+  password: 'password'
+  

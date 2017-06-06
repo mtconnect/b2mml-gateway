@@ -1,0 +1,43 @@
+﻿/*------------------------
+sp_help VwGPManufacturingOrders
+------------------------*/
+Name,Owner,Type,Created_datetime
+VwGPManufacturingOrders,dbo,view,2010-02-11 11:31:10.803
+
+ 
+ 
+Column_name,Type,Computed,Length,Prec,Scale,Nullable,TrimTrailingBlanks,FixedLenNullInSource,Collation
+mo_id,varchar,no,31,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+job_id,char,no,31,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+mo_type,smallint,no,2,5    ,0    ,no,(n/a),(n/a),NULL
+item_id,char,no,31,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+item_description,char,no,101,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+bom_id,char,no,15,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+bom_rev,char,no,51,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+bom_type,smallint,no,2,5    ,0    ,no,(n/a),(n/a),NULL
+routing_id,char,no,31,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+routing_rev,char,no,51,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+drawing_id,char,no,31,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+drawing_rev,varchar,no,10,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+drawing_description,varchar,no,40,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+end_qty,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+start_qty,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+start_date,datetime,no,8,     ,     ,no,(n/a),(n/a),NULL
+end_date,datetime,no,8,     ,     ,no,(n/a),(n/a),NULL
+uom_id,char,no,11,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+standard_qty,numeric,no,9,19   ,5    ,yes,(n/a),(n/a),NULL
+shipping_uom,smallint,no,2,5    ,0    ,yes,(n/a),(n/a),NULL
+
+ 
+Identity,Seed,Increment,Not For Replication
+No identity column defined.,NULL,NULL,NULL
+
+ 
+RowGuidCol
+No rowguidcol column defined.
+
+ 
+No constraints are defined on object 'VwGPManufacturingOrders', or you do not have permissions.
+ 
+No foreign keys reference table 'VwGPManufacturingOrders', or you do not have permissions on referencing tables.
+The object 'VwGPManufacturingOrders' does not have any indexes, or you do not have permissions.

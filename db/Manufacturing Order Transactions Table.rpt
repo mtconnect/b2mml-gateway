@@ -1,0 +1,53 @@
+﻿/*------------------------
+sp_help [VwGPManufacturingOrderTransactions]
+------------------------*/
+Name,Owner,Type,Created_datetime
+VwGPManufacturingOrderTransactions,dbo,view,2014-06-19 14:09:06.257
+
+ 
+ 
+Column_name,Type,Computed,Length,Prec,Scale,Nullable,TrimTrailingBlanks,FixedLenNullInSource,Collation
+eid,char,no,15,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+last_name,char,no,21,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+first_name,char,no,15,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+datatype_id,smallint,no,2,5    ,0    ,no,(n/a),(n/a),NULL
+mo_id,char,no,31,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+job_id,char,no,31,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+item_id,char,no,31,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+item_description,char,no,101,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+sequence_id,char,no,11,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+description,char,no,101,     ,     ,yes,no,yes,SQL_Latin1_General_CP1_CI_AS
+labor_code,char,no,11,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+start_date,datetime,no,8,     ,     ,no,(n/a),(n/a),NULL
+start_time,datetime,no,8,     ,     ,no,(n/a),(n/a),NULL
+finish_date,datetime,no,8,     ,     ,no,(n/a),(n/a),NULL
+finish_time,datetime,no,8,     ,     ,no,(n/a),(n/a),NULL
+LABCODEDESC_I,char,no,31,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+LABCODEPAYCODESEL_I,smallint,no,2,5    ,0    ,no,(n/a),(n/a),NULL
+elapsed_hrs,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+complete_qty,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+reject_qty,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+change_date,datetime,no,8,     ,     ,no,(n/a),(n/a),NULL
+user_id,char,no,15,     ,     ,no,no,no,SQL_Latin1_General_CP1_CI_AS
+labor_cost,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+setup_flag,tinyint,no,1,3    ,0    ,no,(n/a),(n/a),NULL
+cb_flag,tinyint,no,1,3    ,0    ,no,(n/a),(n/a),NULL
+POSTABLE_I,tinyint,no,1,3    ,0    ,no,(n/a),(n/a),NULL
+MFGNOTEINDEX_I,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+fixed_ohead_cost,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+variable_ohead_cost,numeric,no,9,19   ,5    ,no,(n/a),(n/a),NULL
+DEX_ROW_ID,int,no,4,10   ,0    ,no,(n/a),(n/a),NULL
+
+ 
+Identity,Seed,Increment,Not For Replication
+DEX_ROW_ID,1,1,0
+
+ 
+RowGuidCol
+No rowguidcol column defined.
+
+ 
+No constraints are defined on object 'VwGPManufacturingOrderTransactions', or you do not have permissions.
+ 
+No foreign keys reference table 'VwGPManufacturingOrderTransactions', or you do not have permissions on referencing tables.
+The object 'VwGPManufacturingOrderTransactions' does not have any indexes, or you do not have permissions.

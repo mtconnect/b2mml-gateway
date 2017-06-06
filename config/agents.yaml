@@ -1,0 +1,13 @@
+---
+step:
+  url: http://swim.steptools.com:5000/
+  device: OKUMA.MachiningCenter
+  filter: //DataItem[@type='MEASUREMENT'or@type='PROGRAM'or@type='ASSET_CHANGED'or@type='EXECUTION']
+
+#local:
+#  url: http://localhost:5000/
+#  device: mitsubishi_CNC
+#  filter: //DataItem[@type='MEASUREMENT'or@type='PROGRAM'or@type='ASSET_CHANGED'or@type='EXECUTION']
+
+
+
