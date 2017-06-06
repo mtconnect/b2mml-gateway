@@ -11,16 +11,15 @@ module B2MML
     def_document = REXML::Document.new
     def_document << REXML::XMLDecl.new("1.0", "UTF-8")
 
-    definition = REXML::Element.new('ProductionDefinition')
+    definition = def_document.add_element('ProductionDefinition')
     definition.add_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
     definition.add_namespace("b2mml", "http://www.mesa.org/xml/B2MML-V0600")
     definition.add_namespace("http://www.mesa.org/xml/B2MML-V0600")
     definition.add_attribute('xsi:schemaLocation',
                              "http://www.mesa.org/xml/B2MML-V0600 B2MML/Schema/B2MML-V0600-ProductionDefinition.xsd")
-    def_document << definition
 
     definition.add_element('ID').text = order.item_id
-    definition.add_element('Description').text = order.item_description + ' ' + order.drawing_description
+    definition.add_element('Description').text = "#{order.item_description} #{order.drawing_description}"
     definition.add_element('ProductSegment').add_element('ID').text = order.item_id
     
     File.open(filename, 'w') do |f|
@@ -34,19 +33,18 @@ module B2MML
     sched_document = REXML::Document.new
     sched_document << REXML::XMLDecl.new("1.0", "UTF-8")
 
-    schedule = REXML::Element.new('ProductionSchedule')
+    schedule = sched_document.add_element('ProductionSchedule')
     schedule.add_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
     schedule.add_namespace("b2mml", "http://www.mesa.org/xml/B2MML-V0600")
     schedule.add_namespace("http://www.mesa.org/xml/B2MML-V0600")
     schedule.add_attribute('xsi:schemaLocation',
                            "http://www.mesa.org/xml/B2MML-V0600 B2MML/Schema/B2MML-V0600-ProductionSchedule.xsd")
-    sched_document << schedule
 
     schedule.add_element('ID').text = order.mo_id
 
     request = schedule.add_element('ProductionRequest')
     request.add_element('ID').text = order.mo_id
-    request.add_element('Description').text = order.item_description + ' ' + order.drawing_description
+    request.add_element('Description').text = "#{order.item_description} #{order.drawing_description}"
     request.add_element('Endtime').text = order.end_date
 
     segment = request.add_element('SegmentRequirement')
