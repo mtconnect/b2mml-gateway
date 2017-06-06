@@ -12,14 +12,14 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-$: << File.dirname(__FILE__)
+$: << File.join(File.dirname(__FILE__), '..', 'src')
 
 require 'configuration'
 require 'strscan'
 
-$data_dir = "#{File.dirname(__FILE__)}/../data/"
+$data_dir = File.join(File.dirname(__FILE__), '..', 'data')
 
-files = Dir["#{$data_dir}*.rpt"]
+files = Dir["#{$data_dir}/*.rpt"]
 
 
 files.each do |name|
