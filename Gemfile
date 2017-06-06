@@ -7,6 +7,7 @@ end
 
 gem "tiny_tds"
 gem 'sequel'
+gem 'ruby-duration'
 
 group :test do
   gem "rspec", "~> 3.5"
