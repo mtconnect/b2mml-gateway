@@ -11,12 +11,12 @@ module B2MML
     def_document = REXML::Document.new
     def_document << REXML::XMLDecl.new("1.0", "UTF-8")
 
-    definition = def_document.add_element('ProductionDefinition')
+    definition = def_document.add_element('ProductDefinition')
     definition.add_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
     definition.add_namespace("b2mml", "http://www.mesa.org/xml/B2MML-V0600")
     definition.add_namespace("http://www.mesa.org/xml/B2MML-V0600")
     definition.add_attribute('xsi:schemaLocation',
-                             "http://www.mesa.org/xml/B2MML-V0600 ../B2MML/B2MML-V0600-ProductionDefinition.xsd")
+                             "http://www.mesa.org/xml/B2MML-V0600 ../B2MML/B2MML-V0600-ProductDefinition.xsd")
 
     definition.add_element('ID').text = order.item_id
     definition.add_element('Description').text = "#{order.item_description} #{order.drawing_description}"
@@ -45,18 +45,19 @@ module B2MML
     request = schedule.add_element('ProductionRequest')
     request.add_element('ID').text = order.mo_id
     request.add_element('Description').text = "#{order.item_description} #{order.drawing_description}"
-    request.add_element('Endtime').text = order.end_date
+    request.add_element('StartTime').text = order.start_date.iso8601
+    request.add_element('EndTime').text = order.end_date.iso8601
 
     segment = request.add_element('SegmentRequirement')
     segment.add_element('ProductSegmentID').text = order.job_id
-    segment.add_element('LatestEndTime').text = order.end_date
+    segment.add_element('LatestEndTime').text = order.end_date.iso8601
 
     processes = order.processes.to_a
     hours = processes.inject(0) { |t, proc| t + proc.run_hrs + proc.setup_hrs }
     
     segment.add_element('Duration').text = format_duration(hours)
 
-    requirement = segment.add_element('MaterialProductRequirement')
+    requirement = segment.add_element('MaterialProducedRequirement')
     qty = requirement.add_element('Quantity')
     qty.add_element('QuantityString').text = order.end_qty
     qty.add_element('DataType').text = 'Amount'
@@ -85,7 +86,7 @@ module B2MML
       equipment.add_element('Description').text = process.wc_description
 
       property = equipment.add_element('EquipmentRequirementProperty')
-      property.add_element('Cost')
+      property.add_element('ID').text = 'Cost'
       value = property.add_element('Value')
       value.add_element('ValueString').text = process.labor_hrs.to_f * 15 + process.run_hrs.to_f * 40
       value.add_element('DataType').text = 'Amount'
