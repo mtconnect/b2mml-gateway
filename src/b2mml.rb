@@ -7,7 +7,7 @@ module B2MML
     Duration.new(:seconds => hours.to_f * 3600).iso8601
   end
 
-  def self.write_definition(order, filename)
+  def self.write_definition(order, io)
     def_document = REXML::Document.new
     def_document << REXML::XMLDecl.new("1.0", "UTF-8")
 
@@ -22,14 +22,12 @@ module B2MML
     definition.add_element('Description').text = "#{order.item_description} #{order.drawing_description}"
     definition.add_element('ProductSegment').add_element('ID').text = order.job_id
     
-    File.open(filename, 'w') do |f|
-      form = REXML::Formatters::Pretty.new
-      form.compact = true
-      form.write(def_document, f)
-    end
+    form = REXML::Formatters::Pretty.new
+    form.compact = true
+    form.write(def_document, io)
   end
 
-  def self.write_schedule(order, filename)
+  def self.write_schedule(order, io)
     sched_document = REXML::Document.new
     sched_document << REXML::XMLDecl.new("1.0", "UTF-8")
 
@@ -97,10 +95,8 @@ module B2MML
     request.add_element('RequestState').text = 'Released'
     schedule.add_element('ScheduleState').text = 'Released'
 
-    File.open(filename, 'w') do |f|
-      form = REXML::Formatters::Pretty.new
-      form.compact = true
-      form.write(sched_document, f)
-    end
+    form = REXML::Formatters::Pretty.new
+    form.compact = true
+    form.write(sched_document, io)
   end  
 end

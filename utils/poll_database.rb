@@ -12,8 +12,14 @@ date = Date.today - 1.day
 
 orders = QUPID::Order.where { end_date >= date }
 orders.to_a.each do |order|
-  puts "Writing order: #{order.inspect}"
-  B2MML::write_definition(order, File.join(output_dir, "#{order.mo_id}_definition.xml"))
-  B2MML::write_schedule(order, File.join(output_dir, "#{order.mo_id}_schedule.xml"))
+  puts "Writing order: #{order.mo_id}"
+  
+  definition = ""
+  schedule = ""
+  
+  B2MML::write_definition(order, definition)
+  B2MML::write_schedule(order, schedule)
+
+  
 end
 
