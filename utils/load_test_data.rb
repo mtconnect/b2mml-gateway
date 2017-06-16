@@ -27,10 +27,13 @@ files.each do |name|
   text = file.read(2048)
   parser = StringScanner.new(text)
 
-  parser.skip(/[^\/]+\/\*-+\s+select.+?from\s+/mi)
+  parser.skip(/[^\/]*\/\*-+\s+/mi)
+  p parser
   table_name = parser.scan(/\w+/)
   parser.skip(/.+?----------+\*\/[^\n]\n/m)
   start = parser.pos
+
+  p table_name
 
   file.seek(start)
   columns = file.readline.strip.split('|').map(&:to_sym)

@@ -16,11 +16,11 @@ module B2MML
     definition.add_namespace("b2mml", "http://www.mesa.org/xml/B2MML-V0600")
     definition.add_namespace("http://www.mesa.org/xml/B2MML-V0600")
     definition.add_attribute('xsi:schemaLocation',
-                             "http://www.mesa.org/xml/B2MML-V0600 B2MML/Schema/B2MML-V0600-ProductionDefinition.xsd")
+                             "http://www.mesa.org/xml/B2MML-V0600 ../B2MML/B2MML-V0600-ProductionDefinition.xsd")
 
     definition.add_element('ID').text = order.item_id
     definition.add_element('Description').text = "#{order.item_description} #{order.drawing_description}"
-    definition.add_element('ProductSegment').add_element('ID').text = order.item_id
+    definition.add_element('ProductSegment').add_element('ID').text = order.job_id
     
     File.open(filename, 'w') do |f|
       form = REXML::Formatters::Pretty.new
@@ -38,7 +38,7 @@ module B2MML
     schedule.add_namespace("b2mml", "http://www.mesa.org/xml/B2MML-V0600")
     schedule.add_namespace("http://www.mesa.org/xml/B2MML-V0600")
     schedule.add_attribute('xsi:schemaLocation',
-                           "http://www.mesa.org/xml/B2MML-V0600 B2MML/Schema/B2MML-V0600-ProductionSchedule.xsd")
+                           "http://www.mesa.org/xml/B2MML-V0600 ../B2MML/B2MML-V0600-ProductionSchedule.xsd")
 
     schedule.add_element('ID').text = order.mo_id
 
@@ -48,7 +48,7 @@ module B2MML
     request.add_element('Endtime').text = order.end_date
 
     segment = request.add_element('SegmentRequirement')
-    segment.add_element('ProductSegmentID').text = order.item_id
+    segment.add_element('ProductSegmentID').text = order.job_id
     segment.add_element('LatestEndTime').text = order.end_date
 
     processes = order.processes.to_a

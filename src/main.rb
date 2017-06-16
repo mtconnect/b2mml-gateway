@@ -14,6 +14,7 @@
 
 require 'configuration'
 require 'collector'
+require 'db_reader'
 
 module Main
   def Main.start
@@ -29,18 +30,25 @@ module Main
     doc = YAML.load_file("#{$config_dir}agents.yaml")
 
     $running = true
-    threads = doc.map do |name, config|
+    @threads = doc.map do |name, config|
       Thread.new do
         collector = Collector.new(name, config['url'], config['filter'], config['device'])
         collector.stream
       end
     end
+
+    @threads << Thread.new do
+      DBReader.instance.start
+    end
+    
     Collector.sample_queue
   end
   
   def Main.stop
     $running = false
     Collector.signal_queue
+    DBReader.instance.stop
+    @threads.each { |t| t.join(2) }
   end
 end
 
