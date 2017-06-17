@@ -7,7 +7,7 @@ There are three things that need to be installed
 
 1. Install Ruby using the one click installer
 2. Minw32 DevKit to build a few gems
-3. Vimana Connect
+3. B2MML Gateway
 
 Install Ruby
 -------
@@ -25,15 +25,15 @@ Install DevKit
 1. Double click DevKit-mingw64-32-4.7.2-20130224-1151-sfx.exe
 2. Extract to C:\DevKit
 
-Install vimana connect
+Install B2MML Gateway
 -------
 
 Make sure you can access the internet
 
-1. Unzip the vimana_connect.zip file to C:\
+1. Unzip the b2mml-gateway.zip file to C:\
 2. Install bundles from command prompt
 
-          C:> cd C:\vimana_connect
+          C:> cd C:\b2mml-gateway
           C:> bin\install
   
 3. Configure the application
@@ -46,7 +46,7 @@ Make sure you can access the internet
     
 4. Test the configuration
 
-  * Delete the vimana_connect.log file from log directory. This was
+  * Delete the b2mml_gateway.log file from log directory. This was
     created by the installer and is only accessible by administrators
 
           C:> bin\start
@@ -61,13 +61,13 @@ Make sure you can access the internet
 
 5. Start a command prompt with admin privileges to install service
 
-          C:> cd C:\vimana_connect
+          C:> cd C:\b2mml_gateway
           C:> bin\install_service
 
 6. Now start the service
 
   * Open the services in the adimistrator tools
-  * Start the VIMANA Data Collector Service
+  * Start the B2MML Gateway
   
 Troubleshooting
 -------
