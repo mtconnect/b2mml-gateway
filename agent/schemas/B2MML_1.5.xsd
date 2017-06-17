@@ -20,14 +20,14 @@
       </xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="mt:AssetInstanceType">
+			<xs:extension base="mt:AssetArchetypeType">
 				<xs:sequence>
 					<xs:element ref="b2mml:ProductDefinition"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:element name="B2mmlProductDefinition" type="b:B2mmlProductDefinitionType" substitutionGroup="mt:AssetInstance">
+	<xs:element name="B2mmlProductDefinition" type="b:B2mmlProductDefinitionType" substitutionGroup="mt:AssetArchetype">
 		<xs:annotation>
 			<xs:documentation>
 				The B2MML Wrapper Asset

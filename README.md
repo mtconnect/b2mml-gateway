@@ -21,7 +21,6 @@ Install Ruby
 Install DevKit
 -------
 
-
 1. Double click DevKit-mingw64-32-4.7.2-20130224-1151-sfx.exe
 2. Extract to C:\DevKit
 

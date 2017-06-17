@@ -46,6 +46,8 @@ module B2MML
   end
 
   def self.write_schedule(order, io)
+    processes = order.processes.to_a
+
     sched_document = REXML::Document.new
 
     # Create asset wrapper
@@ -54,6 +56,21 @@ module B2MML
     asset.add_attribute("assetId", uuid)
     asset.add_attribute("timestamp", Time.now.utc.iso8601)
     asset.add_attribute("deviceUuid", "device")
+
+    product_uuid = create_definition_asset_id(order.job_id)
+    ref = asset.add_element("AssetArchetypeRef")
+    ref.add_attribute("assetType", "b:B2mmlProductDefinition")
+    ref.add_attribute("assetId", product_uuid)
+
+    targets = asset.add_element("Targets")
+    processes.map { |p| p.wc_id.strip }.uniq.each do |wc|
+      target = targets.add_element("Target")
+      target.add_attribute("targetId", wc)
+      target.add_attribute("type", 'DEVICE')
+
+      # Need to replace with device uuid
+      target.add_element('TargetDevice').text = wc
+    end
     
     schedule = asset.add_element('ProductionSchedule')
     schedule.add_namespace("http://www.mesa.org/xml/B2MML-V0600")
@@ -70,7 +87,6 @@ module B2MML
     segment.add_element('ProductSegmentID').text = order.job_id
     segment.add_element('LatestEndTime').text = order.end_date.iso8601
 
-    processes = order.processes.to_a
     hours = processes.inject(0) { |t, proc| t + proc.run_hrs + proc.setup_hrs }
     
     segment.add_element('Duration').text = format_duration(hours)
