@@ -1,3 +1,4 @@
+# coding: utf-8
 # Copyright 2014, System Insights, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -116,6 +117,25 @@ class Collector
     end
   end
 
+  def self.post_asset(uuid, type, device, data)
+    unless @@singleton.nil?
+      @@singleton.post_asset(uuid, type, device, data)
+    else
+      logger.error "There is no singleton object"
+    end
+  end
+
+  def post_asset(uuid, type, device, data)
+    http, path, dev = http_client
+    resp = http.post("#{path}asset/#{uuid}?type=type&device=device", data, { 'ContentType' => 'text/xml' })
+    if resp.code == '200'
+      logger.info "post returned: #{resp.body}"
+    else
+      logger.error "Could not get asset: #{asset_id} – #{resp.code}"
+      nil
+    end
+  end
+                                           
   def recovery_filename
     dest = URI.parse(@url)
     "#{Logging.directory}Recover_#{name}_#{dest.host.gsub('.', '_')}_#{dest.port}.dat"

@@ -1,22 +1,38 @@
 
 require 'rexml/document'
 require 'ruby-duration'
+require 'uuid'
 
 module B2MML
+  NameSpace_MTConnect = UUID.create_sha1("urn:mtconnect.org", UUID::NameSpace_OID)
+  NameSpace_B2MML = UUID.create_sha1("http://www.mesa.org/xml/B2MML-V0600", UUID::NameSpace_URL)
+  NameSpace_ItamcoProductDefinition = UUID.create_sha1("urn:itamco.com:b2mml:ProductDefinition", UUID::NameSpace_OID)
+  NameSpace_ItamcoProductionSchedule = UUID.create_sha1("urn:itamco.com:b2mml:ProductionSchedule", UUID::NameSpace_OID)
+  
   def self.format_duration(hours)
     Duration.new(:seconds => hours.to_f * 3600).iso8601
   end
 
+  def self.create_definition_asset_id(job_id)
+    UUID.create_sha1(job_id, NameSpace_ItamcoProductDefinition)
+  end
+
+  def self.create_schedule_asset_id(job_id)
+    UUID.create_sha1(job_id, NameSpace_ItamcoProductionSchedule)
+  end
+
   def self.write_definition(order, io)
     def_document = REXML::Document.new
-    def_document << REXML::XMLDecl.new("1.0", "UTF-8")
 
-    definition = def_document.add_element('ProductDefinition')
-    definition.add_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-    definition.add_namespace("b2mml", "http://www.mesa.org/xml/B2MML-V0600")
+    # Create asset wrapper
+    asset = def_document.add_element("b:B2mmlProductDefinition")
+    uuid = create_definition_asset_id(order.job_id)
+    asset.add_attribute("assetId", uuid)
+    asset.add_attribute("timestamp", Time.now.utc.iso8601)
+    asset.add_attribute("deviceUuid", "device")
+    
+    definition = asset.add_element('ProductDefinition')
     definition.add_namespace("http://www.mesa.org/xml/B2MML-V0600")
-    definition.add_attribute('xsi:schemaLocation',
-                             "http://www.mesa.org/xml/B2MML-V0600 ../B2MML/B2MML-V0600-ProductDefinition.xsd")
 
     definition.add_element('ID').text = order.item_id
     definition.add_element('Description').text = "#{order.item_description} #{order.drawing_description}"
@@ -25,13 +41,21 @@ module B2MML
     form = REXML::Formatters::Pretty.new
     form.compact = true
     form.write(def_document, io)
+
+    return uuid
   end
 
   def self.write_schedule(order, io)
     sched_document = REXML::Document.new
-    sched_document << REXML::XMLDecl.new("1.0", "UTF-8")
 
-    schedule = sched_document.add_element('ProductionSchedule')
+    # Create asset wrapper
+    asset = sched_document.add_element("b:B2mmlProductionSchedule")
+    uuid = create_schedule_asset_id(order.mo_id)
+    asset.add_attribute("assetId", uuid)
+    asset.add_attribute("timestamp", Time.now.utc.iso8601)
+    asset.add_attribute("deviceUuid", "device")
+    
+    schedule = asset.add_element('ProductionSchedule')
     schedule.add_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
     schedule.add_namespace("b2mml", "http://www.mesa.org/xml/B2MML-V0600")
     schedule.add_namespace("http://www.mesa.org/xml/B2MML-V0600")
@@ -98,5 +122,7 @@ module B2MML
     form = REXML::Formatters::Pretty.new
     form.compact = true
     form.write(sched_document, io)
+
+    return uuid
   end  
 end

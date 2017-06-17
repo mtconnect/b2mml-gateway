@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MTConnectAssets xmlns="urn:mtconnect.org:MTConnectAssets:1.5" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:b2="urn:mtconnect.org:B2MML:1.5"
+	xmlns:b="urn:mtconnect.org:B2MML:1.5"
 	xsi:schemaLocation="urn:mtconnect.org:B2MML:1.5 ../MTConnect/B2MML_1.5.xsd">
 	<Header version="1.5" creationTime="2017-06-16T00:00:00" instanceId="1" sender="localhost" assetBufferSize="1024" assetCount="1"/>
 	<Assets>
-		<b2:B2mmlProductDefinition assetId="M16-10391" timestamp="2017-06-16T00:00:00" deviceUuid="XXX">
+		<b:B2mmlProductDefinition assetId="M16-10391" timestamp="2017-06-16T00:00:00" deviceUuid="XXX">
 			<ProductDefinition xmlns='http://www.mesa.org/xml/B2MML-V0600'>
 			  <ID>37431-00 </ID>
 			  <Description>08D02890-333CSM, Sprocket, Rev. 0 LA#&apos;s NULL</Description>
@@ -13,6 +13,6 @@
 				<ID>37431 </ID>
 			  </ProductSegment>
 			</ProductDefinition>		
-		</b2:B2mmlProductDefinition>
+		</b:B2mmlProductDefinition>
 	</Assets>
 </MTConnectAssets>

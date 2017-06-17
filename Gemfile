@@ -9,6 +9,7 @@ gem "tiny_tds"
 gem 'sequel'
 gem 'ruby-duration'
 gem 'as-duration'
+gem 'ruby-uuid'
 
 group :test do
   gem "rspec", "~> 3.5"
