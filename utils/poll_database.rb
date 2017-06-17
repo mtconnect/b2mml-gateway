@@ -25,7 +25,5 @@ orders.to_a.each do |order|
   uuid = B2MML::write_schedule(order, schedule)
   puts "Posting Schedule #{uuid}"
   collector.post_asset(uuid, "b:B2mmlProductionSchedule", "000", schedule)
-
-  break
 end
 
