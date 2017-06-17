@@ -56,11 +56,7 @@ module B2MML
     asset.add_attribute("deviceUuid", "device")
     
     schedule = asset.add_element('ProductionSchedule')
-    schedule.add_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-    schedule.add_namespace("b2mml", "http://www.mesa.org/xml/B2MML-V0600")
     schedule.add_namespace("http://www.mesa.org/xml/B2MML-V0600")
-    schedule.add_attribute('xsi:schemaLocation',
-                           "http://www.mesa.org/xml/B2MML-V0600 ../B2MML/B2MML-V0600-ProductionSchedule.xsd")
 
     schedule.add_element('ID').text = order.mo_id
 
