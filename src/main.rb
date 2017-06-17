@@ -29,6 +29,7 @@ module Main
 
     doc = YAML.load_file("#{$config_dir}agents.yaml")
 
+    Logging.logger.info "Starting agent threads"
     $running = true
     @threads = doc.map do |name, config|
       Thread.new do
@@ -37,8 +38,10 @@ module Main
       end
     end
 
+    Logging.logger.info "Starting DB Reader thread"
     @threads << Thread.new do
-      DBReader.instance.start
+      Logging.logger.debug "Starting DB Reader"
+      DBReader.instance.start()
     end
     
     Collector.sample_queue

@@ -9,10 +9,8 @@ class DBReader
 
   def initialize
     @output_dir = File.join(File.dirname(__FILE__), '..', 'output')
-    @recover_file = File.join(File.dirname(__FILE__), '..', 'config', recovery.txt)
     @running = false
-
-    read_recovery_file
+    @cache = Hash.new
   end
 
   @@instance = DBReader.new
@@ -21,44 +19,54 @@ class DBReader
     @@instance
   end
 
-  def write_recovery_file
-    File.open(@recovery_file, 'w') do |f|
-      file.puts @recovery_time.iso8601
-    end
-
-  rescue
-    logger.info "Cannot write recovery file #{@recovery_file}: #{$!}"
-  end
-
-  def read_recovery_file
-    File.open(@recovery_file, 'r') do |f|
-      @recovery_time = Time.parse(f.read)
-    end
-
-    logger.info "Recovering from #{@recovery_time.iso8601}"
-  rescue
-    logger.info "Cannot read recovery file #{@recovery_file}: #{$!}"
-    logger.info "Reverting to one month ago"
-    @recovery_time = Time.now - 1.month    
+  def new_or_changed(order)
+    return !@cache.has_key?(order.mo_id)
   end
 
   def start
+    logger.info "Starting Polling Database"
+    
     @running = true
     while @running
-      logging.info "Requesting orders beginning at: #{@recovery_time.iso8601}"
 
-      end_date = Date.now - 1.day
-    
-      orders = QUPID::Order.where { end_date >= end_date }
-      orders.to_a.each do |order|
-        B2MML::write_definition(order, File.join(output_dir, "#{order.mo_id}_definition.xml"))
-        B2MML::write_schedule(order, File.join(output_dir, "#{order.mo_id}_schedule.xml"))
+      today = Date.today
+      logger.info "Requesting orders spanning #{today}"
+
+      begin
+        orders = QUPID::Order.where { start_date <= today and end_date >= today }
+        orders.to_a.each do |order|
+          logger.debug "Checking order: #{order.mo_id}"
+          if new_or_changed(order)
+            logger.info "Adding order #{order.mo_id} for job #{order.job_id}"
+            
+            definition = ""
+            uuid = B2MML::write_definition(order, definition)
+            logger.info "Posting Definition #{uuid}"
+            Collector.post_asset(uuid, "b:B2mmlProductDefinition", definition)
+            
+            schedule = ""
+            uuid = B2MML::write_schedule(order, schedule)
+            logger.info "Posting Schedule #{uuid}"
+            Collector.post_asset(uuid, "b:B2mmlProductionSchedule", schedule)
+            
+            @cache[order.mo_id] = order
+          end
+        end
+      rescue
+        logger.error "Cannot get orders from database: #{$!}"
+        logger.error $!.backtrace.join("\n")
+
+        break if not @running
       end
-
-      write_recovery_file
-      
-      sleep 10
+      logger.info "Reader sleeping 60 seconds"
+      sleep 60
     end
+
+    logger.info "Exiting DB Reader thread"
+    
+  rescue
+    logger.error "DB Reader thread died.: #{$!}"
+    logger.error $!.backtrace.join("\n")
   end
 
   def stop

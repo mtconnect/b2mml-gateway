@@ -22,13 +22,12 @@ if RUBY_PLATFORM =~ /mingw32/
   fn, = Gem.find_files('libxml.rb')
 end
 
-GATEWAY_ENV ||= ENV['GATEWAY_ENV'] && ENV['GATEWAY_ENV'].to_sym || :production
-$gateway_env = GATEWAY_ENV
+$gateway_env ||= ENV['GATEWAY_ENV'] && ENV['GATEWAY_ENV'].to_sym || :production
 
 require 'logging'
 
 $database_configuration = YAML.load_file("#{$config_dir}database.yaml").deep_symbolize_keys
-config = $database_configuration[GATEWAY_ENV]
+config = $database_configuration[$gateway_env]
 
 adapter = config.delete(:adapter)
 config[:loggers] = [Logging.logger]

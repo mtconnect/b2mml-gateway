@@ -24,7 +24,7 @@ begin
     require 'win32/registry'
   end
 
-  $collector_env = :production
+  $gateway_env = :production
 
   if ARGV.length > 0
     service_name = "B2MML Gateway"
@@ -36,7 +36,7 @@ begin
 
     case ARGV[0].downcase
     when "install"
-      $collector_env = :install
+      $gateway_env = :install
       require 'configuration'
       require 'logging'
       puts "Installing command: #{cmd}"
@@ -49,7 +49,7 @@ begin
       puts 'Service ' + service_name + ' installed'
 
     when  'update'
-      $collector_env = :install
+      $gateway_env = :install
       require 'configuration'
       require 'logging'
       puts "Updating command: #{cmd}"
@@ -57,19 +57,20 @@ begin
                    binary_path_name: cmd)
   
     when "uninstall"
-      $collector_env = :install
+      $gateway_env = :install
       require 'configuration'
       require 'logging'
       Win32::Service.delete(service_name)
       puts 'Service ' + service_name + ' deleted'
     
     when 'run'
-      $collector_env = :run
+      $gateway_env = :run
       require 'main'
       Main.start
 
     when 'debug'
-      $collector_env = :debug
+      puts "Starting debug"
+      $gateway_env = :debug
       require 'main'
       Main.start
     end
