@@ -63,7 +63,7 @@ CREATE INDEX gpmot_i3 ON VwGPManufacturingOrderTransactions (item_id DESC);
 
 DROP TABLE IF EXISTS VwGPManufacturingOrders;
 CREATE TABLE VwGPManufacturingOrders (
-     mo_id               varchar(31) NULL,
+     mo_id               varchar(31) NOT NULL,
      job_id	         char(31) NOT NULL,
      mo_type		 smallint NOT NULL,
      item_id		 char(31) NOT NULL,
@@ -88,3 +88,79 @@ CREATE TABLE VwGPManufacturingOrders (
 CREATE INDEX gpmo_i1 ON VwGPManufacturingOrders (mo_id DESC);
 CREATE INDEX gpmo_i2 ON VwGPManufacturingOrders (item_id DESC);
 CREATE INDEX gpmo_i3 ON VwGPManufacturingOrders (job_id DESC);
+
+DROP TABLE IF EXISTS manufacturing_schedule;
+CREATE TABLE manufacturing_schedule (
+       sid             int NOT NULL,
+       wc_id 	       char(11) NOT NULL,
+       mo_id           varchar(31) NOT NULL,
+       mo_op_id        varchar(31) NOT NULL,
+       employees_sid   int NULL,
+       quantity        int NULL,
+       start_date      smalldatetime NULL,
+       due_date        smalldatetime NULL,
+       setup_flag      int NULL,
+       
+       create_sid       int NULL,
+       create_date      smalldatetime NULL,
+       change_sid       int NULL,
+       change_date      smalldatetime NULL,
+       change_count     int NULL,
+       delete_sid       int NULL,
+       delete_date      smalldatetime NULL
+);
+
+CREATE UNIQUE INDEX ms_i1 ON manufacturing_schedule (sid DESC);
+CREATE INDEX ms_i2 ON manufacturing_schedule (mo_id, mo_op_id DESC);
+CREATE INDEX ms_i3 ON manufacturing_schedule (wc_id DESC);
+
+DROP TABLE IF EXISTS manufacturing_tools_bot;
+CREATE TABLE manufacturing_tools_bot (
+       sid              int NOT NULL,
+       mo_id            varchar(31) NOT NULL,
+       mo_op_id         varchar(31) NOT NULL,
+       bot_rev          varchar(31) NULL,
+       bot_rev_date     smalldatetime NULL,
+       
+       create_sid       int NULL,
+       create_date      smalldatetime NULL,
+       change_sid       int NULL,
+       change_date      smalldatetime NULL,
+       change_count     int NULL,
+       delete_sid       int NULL,
+       delete_date      smalldatetime NULL
+);
+
+CREATE UNIQUE INDEX mtb_i1 ON manufacturing_tools_bot (sid DESC);
+CREATE INDEX mtb_i2 ON manufacturing_tools_bot (mo_id, mo_op_id DESC);
+
+DROP TABLE IF EXISTS manufacturing_tool_details;
+CREATE TABLE manufacturing_tool_details (
+       sid              int NOT NULL,
+       manufacturing_tools_bot_sid  int NOT NULL,
+       tool_no          varchar(31) NOT NULL,
+       tool_item_id     varchar(31) NOT NULL,
+       instance_id      int NOT NULL,
+       tool_id		varchar(31) NOT NULL,
+       tool_description varchar(256) NULL,
+       tool_type        varchar(31) NULL,
+       tool_length_min  float NOT NULL,
+       insert_item_id   varchar(31) NULL,
+       insert_id        varchar(31) NULL,
+       holder_item_id   varchar(31) NULL,
+       holder_id        varchar(31) NULL,
+       max_depth_cut    float NULL,
+       diameter_cutting float NULL,
+
+       create_sid       int NULL,
+       create_date      smalldatetime NULL,
+       change_sid       int NULL,
+       change_date      smalldatetime NULL,
+       change_count     int NULL,
+       delete_sid       int NULL,
+       delete_date      smalldatetime NULL
+);
+
+CREATE UNIQUE INDEX mtd_i1 ON manufacturing_tool_details (sid DESC);
+CREATE INDEX mtd_i2 ON manufacturing_tool_details (manufacturing_tools_bot_sid DESC);
+CREATE INDEX mtd_i3 ON manufacturing_tool_details (tool_no DESC);

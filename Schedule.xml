@@ -1,0 +1,404 @@
+<b:B2mmlProductionSchedule assetId='a760e8cd-02a2-553c-a05b-0dff28aff8d4' timestamp='2017-07-18T22:46:00Z' deviceUuid='device'>
+  <AssetArchetypeRef assetType='b:B2mmlProductDefinition' assetId='46669aae-11f6-5d2a-b8d1-72d0a6ee4cb2'/>
+  <Targets>
+    <Target targetId='WC81-SS' type='DEVICE'>
+      <TargetDevice>WC81-SS</TargetDevice>
+    </Target>
+    <Target targetId='WC41-HTC' type='DEVICE'>
+      <TargetDevice>WC41-HTC</TargetDevice>
+    </Target>
+    <Target targetId='WC17-HMC' type='DEVICE'>
+      <TargetDevice>WC17-HMC</TargetDevice>
+    </Target>
+    <Target targetId='WC89-QC' type='DEVICE'>
+      <TargetDevice>WC89-QC</TargetDevice>
+    </Target>
+    <Target targetId='VC70-HT' type='DEVICE'>
+      <TargetDevice>VC70-HT</TargetDevice>
+    </Target>
+    <Target targetId='WC0000' type='DEVICE'>
+      <TargetDevice>WC0000</TargetDevice>
+    </Target>
+  </Targets>
+  <ProductionSchedule xmlns='http://www.mesa.org/xml/B2MML-V0600'>
+    <ID>M17-10003</ID>
+    <ProductionRequest>
+      <ID>M17-10003</ID>
+      <Description>Sprocket Assy, Rev. 00 A/W, Ring, Sprocket 5T-42X146</Description>
+      <StartTime>2017-01-06T00:00:00-07:00</StartTime>
+      <EndTime>2017-01-13T00:00:00-07:00</EndTime>
+      <SegmentRequirement>
+        <ProductSegmentID>PARC-0001 </ProductSegmentID>
+        <LatestEndTime>2017-01-13T00:00:00-07:00</LatestEndTime>
+        <Duration>P2DT23H30M</Duration>
+        <MaterialProducedRequirement>
+          <Quantity>
+            <QuantityString>0.4E1</QuantityString>
+            <DataType>Amount</DataType>
+          </Quantity>
+        </MaterialProducedRequirement>
+        <MaterialConsumedRequirement>
+          <MaterialConsumedRequirementProperty>
+            <ID>Availability</ID>
+            <Value>
+              <ValueString>Available</ValueString>
+              <DataType>string</DataType>
+            </Value>
+          </MaterialConsumedRequirementProperty>
+        </MaterialConsumedRequirement>
+        <SegmentRequirement>
+          <ID>005 </ID>
+          <Duration>PT30M</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT0S</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC81-SS </EquipmentID>
+            <Description>Shipping Support </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>21.875</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>020 </ID>
+          <Duration>PT8H</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT2H30M</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC41-HTC </EquipmentID>
+            <Description>Horz Turn Centers </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>231.25</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>030 </ID>
+          <Duration>PT7H</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT2H</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC41-HTC </EquipmentID>
+            <Description>Horz Turn Centers </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>211.25</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>040 </ID>
+          <Duration>P1DT10H</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT7H</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC17-HMC </EquipmentID>
+            <Description>Horz Mach Centers </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>1155.0</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>045 </ID>
+          <Duration>PT6H</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT1H30M</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC17-HMC </EquipmentID>
+            <Description>Horz Mach Centers </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>191.25</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>050 </ID>
+          <Duration>PT1H</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT0S</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC89-QC </EquipmentID>
+            <Description>Quality Control </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>43.75</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>060 </ID>
+          <Duration>PT8H</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT0S</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC81-SS </EquipmentID>
+            <Description>Shipping Support </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>350.0</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>065 </ID>
+          <Duration>PT0S</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT0S</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>VC70-HT </EquipmentID>
+            <Description>Heat Treating </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>0.0</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>070 </ID>
+          <Duration>PT1H</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT0S</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC81-SS </EquipmentID>
+            <Description>Shipping Support </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>43.75</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>075 </ID>
+          <Duration>PT0S</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT0S</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC89-QC </EquipmentID>
+            <Description>Quality Control </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>0.0</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>080 </ID>
+          <Duration>PT4H</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT1H</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC41-HTC </EquipmentID>
+            <Description>Horz Turn Centers </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>127.5</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>090 </ID>
+          <Duration>PT1H</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT0S</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC89-QC </EquipmentID>
+            <Description>Quality Control </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>43.75</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>900 </ID>
+          <Duration>PT0S</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT0S</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC0000 </EquipmentID>
+            <Description>Total Manufacturing </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>0.0</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+        <SegmentRequirement>
+          <ID>999 </ID>
+          <Duration>PT1H</Duration>
+          <ProductionParameter>
+            <Parameter>
+              <ID>SetupTime</ID>
+              <Value>
+                <ValueString>PT0S</ValueString>
+                <DataType>duration</DataType>
+              </Value>
+            </Parameter>
+          </ProductionParameter>
+          <EquipmentRequirement>
+            <EquipmentID>WC81-SS </EquipmentID>
+            <Description>Shipping Support </Description>
+            <EquipmentRequirementProperty>
+              <ID>Cost</ID>
+              <Value>
+                <ValueString>43.75</ValueString>
+                <DataType>Amount</DataType>
+                <UnitOfMeasure>US Dollar</UnitOfMeasure>
+              </Value>
+            </EquipmentRequirementProperty>
+          </EquipmentRequirement>
+        </SegmentRequirement>
+      </SegmentRequirement>
+      <RequestState>Released</RequestState>
+    </ProductionRequest>
+    <ScheduleState>Released</ScheduleState>
+  </ProductionSchedule>
+</b:B2mmlProductionSchedule>

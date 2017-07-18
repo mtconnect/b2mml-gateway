@@ -1,0 +1,6 @@
+﻿/*------------------------ manufacturing_tool_details
+SELECT *
+FROM [QUPID].[dbo].[manufacturing_tool_details]
+------------------------*/
+ sid|manufacturing_tools_bot_sid|tool_no|tool_item_id|instance_id|tool_id|tool_description|tool_type|tool_length_min|insert_item_id|insert_id|holder_item_id|holder_id|max_depth_cut|diameter_cutting|create_sid|create_date|change_sid|change_date|change_count|delete_sid|delete_date
+10|1|5|2|123|XX123|Drill|DRILL|100.0|555|20|H333|YY222|75|10

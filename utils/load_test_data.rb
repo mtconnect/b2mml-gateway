@@ -50,6 +50,7 @@ files.each do |name|
     prev = line
     
     fields = line.split('|').map(&:strip)
+    fields.map! { |v|  v == 'NULL' ? nil : v }
     row = Hash[*columns.zip(fields).flatten]
     table.insert(row)
   end

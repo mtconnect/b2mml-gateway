@@ -17,8 +17,8 @@ module B2MML
     UUID.create_sha1(job_id, NameSpace_ItamcoProductDefinition)
   end
 
-  def self.create_schedule_asset_id(job_id)
-    UUID.create_sha1(job_id, NameSpace_ItamcoProductionSchedule)
+  def self.create_schedule_asset_id(mo_id)
+    UUID.create_sha1(mo_id, NameSpace_ItamcoProductionSchedule)
   end
 
   def self.write_definition(order, io)
@@ -36,7 +36,7 @@ module B2MML
 
     definition.add_element('ID').text = order.item_id
     definition.add_element('Description').text = "#{order.item_description} #{order.drawing_description}"
-    definition.add_element('ProductSegment').add_element('ID').text = order.job_id
+    definition.add_element('ProductSegment').add_element('ID').text = order.item_id
     
     form = REXML::Formatters::Pretty.new
     form.compact = true
@@ -84,7 +84,7 @@ module B2MML
     request.add_element('EndTime').text = order.end_date.iso8601
 
     segment = request.add_element('SegmentRequirement')
-    segment.add_element('ProductSegmentID').text = order.job_id
+    segment.add_element('ProductSegmentID').text = order.item_id
     segment.add_element('LatestEndTime').text = order.end_date.iso8601
 
     hours = processes.inject(0) { |t, proc| t + proc.run_hrs + proc.setup_hrs }
