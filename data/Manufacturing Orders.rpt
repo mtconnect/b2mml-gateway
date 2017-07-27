@@ -1,8 +1,11 @@
-﻿/*------------------------ VwGPManufacturingOrders
-SELECT *
-FROM [QUPID].[dbo].[VwGPManufacturingOrders]
-WHERE start_date >= '2017-01-01'
+﻿/*------------------------
+select * from VwGPManufacturingOrders where item_id like 'PARC-%';
 ------------------------*/
 mo_id|job_id|mo_type|item_id|item_description|bom_id|bom_rev|bom_type|routing_id|routing_rev|drawing_id|drawing_rev|drawing_description|end_qty|start_qty|start_date|end_date|uom_id|standard_qty|shipping_uom
-M17-10003|37775                          |6|PARC-0001                       |Sprocket Assy, Rev. 00                                                                               |               |1                                                  |1|PARC-0001                       |                                                   |08D03067-111                   |-|A/W, Ring, Sprocket 5T-42X146|4.00000|4.00000|2017-01-06 00:00:00.000|2017-01-13 00:00:00.000|EA - Z     |0.00000|0
+M16-10376|37756                          |3|PARC-00001                     |Simple, Damper, Rev. -                                                                               |               |1                                                  |1|PARC-00001                     |                                                   |PARC-00001                     |-|Simple, Damper|1.00000|1.00000|2016-10-12 00:00:00.000|2016-10-12 00:00:00.000|EA - Z     |0.00000|0
+M16-10377|37757                          |3|PARC-00002                     |Bracket-TCGO4000043180, Rev. -                                                                       |               |1                                                  |1|PARC-00002                     |                                                   |PARC-00002                     |-|Bracket, TCGO4000043180|1.00000|1.00000|2016-10-12 00:00:00.000|2016-10-12 00:00:00.000|EA - Z     |0.00000|0
+M16-10378|37758                          |3|PARC-00003                     |Base, Part 1a, Rev. -                                                                                |               |1                                                  |1|PARC-00003                     |                                                   |PARC-00003                     |-|Base, Part 1a|1.00000|1.00000|2016-10-12 00:00:00.000|2016-10-12 00:00:00.000|EA - Z     |0.00000|0
+M16-10379|37759                          |3|PARC-00004                     |Rear Mount, HV, Left, Rev. -                                                                         |               |1                                                  |1|PARC-00004                     |                                                   |PARC-00004                     |-|Rear, HV, Mount, Left|1.00000|1.00000|2016-10-12 00:00:00.000|2016-10-12 00:00:00.000|EA - Z     |0.00000|0
+
+(4 row(s) affected)
 

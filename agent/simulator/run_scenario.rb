@@ -8,6 +8,7 @@ port = 7878
 scenario = false
 verbose = false
 fast = false
+delta = 0.01
 server = '0.0.0.0'
 
 OptionParser.new do |opts|
@@ -24,6 +25,11 @@ OptionParser.new do |opts|
   opts.on('-h', '--help', 'Show help') do
     puts opts
     exit 1
+  end
+
+  opts.on('-d', '--delta [delay]', OptionParser::DecimalNumeric, 'Delta between data (used with fast)') do |v|
+    puts "Will delay #{v} seconds between lines"
+    delta = v
   end
 
   opts.on('-t', '--[no-]scenario', 'Run scenario or log') do |v|
@@ -105,7 +111,7 @@ begin
         f, r = l.chomp.split('|', 2)
       
         if fast
-          sleep 0.0001
+          sleep delta
         elsif scenario
           if f == nil
             f = 1

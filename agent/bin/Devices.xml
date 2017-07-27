@@ -10,12 +10,12 @@
         <DataItem type='LOGIC_PROGRAM' category='CONDITION' id='dtop_4' name='logic'/>
         <DataItem type='SYSTEM' category='CONDITION' id='dtop_5' name='system'/>
         <!-- Useful Life -->
-        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_6' name='rulr' subType='REMAINING'/>
-        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_7' name='ruld' subType='INTERVAL'/>
+        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_6' name='rulr' subType='REMAINING' units="SECOND"/>
+        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_7' name='ruld' subType='INTERVAL' units="SECOND"/>
         <!-- Equipment Timers -->
-        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_8' name='operating_time' subType='OPERATING'/>
-        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_9' name='working_time' subType='WORKING'/>
-        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_10' name='powered_time' subType='POWERED'/>
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_8' name='operating_time' subType='OPERATING' units="SECOND"/>
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_9' name='working_time' subType='WORKING' units="SECOND"/>
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_10' name='powered_time' subType='POWERED' units="SECOND"/>
       </DataItems>
       <Components>
         <Axes name='axes' id='axes_11'>
@@ -95,7 +95,7 @@
                 <DataItem type='SYSTEM' category='CONDITION' id='C_56' name='S1_system'/>
                 <DataItem type='LOAD' category='CONDITION' id='C_57' name='S1_load_cond'/>
                 <!-- Spindle Capability -->
-                <DataItem type='CAPABILITY_ROTARY_VELOCITY' category='EVENT' id='C_58' name='cap_rv' subType='MAX'/>
+                <DataItem type='CAPABILITY_ROTARY_VELOCITY' category='EVENT' id='C_58' name='cap_rv' subType='MAXIMUM' units="REVOLUTION/MINUTE"/>
               </DataItems>
             </Rotary>
           </Components>
@@ -138,7 +138,7 @@
                 <DataItem type='MOTION_PROGRAM' category='CONDITION' id='p1_89' name='motion_1'/>
                 <DataItem type='SYSTEM' category='CONDITION' id='p1_90' name='system_1'/>
                 <!-- Machine Accuracy -->
-                <DataItem type='CAPABILITY_PATH_POSITION' category='EVENT' id='p1_91' name='cap_position' subType='MIN'/>
+                <DataItem type='CAPABILITY_PATH_POSITION' category='EVENT' id='p1_91' name='cap_position' subType='MINIMUM' units='MILLIMETER_3D'/>
               </DataItems>
             </Path>
           </Components>

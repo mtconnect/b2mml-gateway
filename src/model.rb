@@ -29,6 +29,7 @@ module QUPID
 
     one_to_one :order, :key => :mo_id, :primary_key => :mo_id
     one_to_many :tool_details, :key => :manufacturing_tools_bot_sid, :primary_key => :sid
+    one_to_one :process, key: [:mo_id, :sequence_id], primary_key: [:mo_id, :mo_op_id]
   end
 
   class ToolDetail < Sequel::Model(:manufacturing_tool_details)
