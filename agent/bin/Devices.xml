@@ -11,11 +11,11 @@
         <DataItem type='SYSTEM' category='CONDITION' id='dtop_5' name='system'/>
         <!-- Useful Life -->
         <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_6' name='rulr' subType='REMAINING' units="SECOND"/>
-        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_7' name='ruld' subType='INTERVAL' units="SECOND"/>
+        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_7' name='ruld' subType='INTERVAL' units="SECOND" representation="DISCRETE"/>
         <!-- Equipment Timers -->
-        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_8' name='operating_time' subType='OPERATING' units="SECOND"/>
-        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_9' name='working_time' subType='WORKING' units="SECOND"/>
-        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_10' name='powered_time' subType='POWERED' units="SECOND"/>
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_8' name='operating_time' subType='OPERATING' units="SECOND" representation="DISCRETE"/>
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_9' name='working_time' subType='WORKING' units="SECOND" representation="DISCRETE"/>
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_10' name='powered_time' subType='POWERED' units="SECOND" representation="DISCRETE"/>
       </DataItems>
       <Components>
         <Axes name='axes' id='axes_11'>
@@ -139,6 +139,7 @@
                 <DataItem type='SYSTEM' category='CONDITION' id='p1_90' name='system_1'/>
                 <!-- Machine Accuracy -->
                 <DataItem type='CAPABILITY_PATH_POSITION' category='EVENT' id='p1_91' name='cap_position' subType='MINIMUM' units='MILLIMETER_3D'/>
+                <DataItem type='CAPABILITY_PATH_FEEDRATE' category='EVENT' id='p1_91' name='cap_feed' subType='MINIMUM' units='MILLIMETER/SECOND'/>
               </DataItems>
             </Path>
           </Components>
