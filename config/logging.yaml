@@ -4,7 +4,7 @@ test:
   level: INFO
 
 production:
-  level: INFO
+  level: DEBUG
   max_size: 2M
   retain: 10
 

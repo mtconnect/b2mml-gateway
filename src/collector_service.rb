@@ -64,7 +64,7 @@ begin
       puts 'Service ' + service_name + ' deleted'
     
     when 'run'
-      $gateway_env = :run
+      $gateway_env = :production
       require 'main'
       Main.start
 

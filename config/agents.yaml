@@ -1,11 +1,11 @@
 ---
 Haas:
-  url: http://10.37.129.2:5000/
+  url: http://10.0.4.227:5000/
   device: itamco_Haas
   filter: //DataItem[@type='ASSET_CHANGED']
 
 Dmg:
-  url: http://10.37.129.2:5000/
+  url: http://10.0.4.227:5000/
   device: itamco_DMG
   filter: //DataItem[@type='ASSET_CHANGED']
   
