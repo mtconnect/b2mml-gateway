@@ -268,7 +268,7 @@
         </Controller>
       </Components>
     </Device>
-    <Device name='itamco_Preseter' uuid='itamco_Preseter_604778' id='Preseter_146'>
+    <Device name='itamco_Presetter' uuid='itamco_Presetter_604778' id='Presetter_146'>
       <Description model='Generic' manufacturer='ITAMCO'>App - Presetter Database</Description>
       <DataItems>
         <DataItem type='AVAILABILITY' category='EVENT' id='dtop_147' name='availability'/>

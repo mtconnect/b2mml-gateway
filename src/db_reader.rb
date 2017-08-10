@@ -78,12 +78,12 @@ class DBReader
             definition = ""
             uuid = B2MML::write_definition(order, definition)
             logger.info "Posting Definition #{uuid}"
-            Collector.post_asset(uuid, "b:B2mmlProductDefinition", definition)
+            Collector.post_asset(uuid, "b:B2mmlProductDefinition", "itamco_QUPID", definition)
             
             schedule = ""
             uuid = B2MML::write_schedule(order, schedule)
             logger.info "Posting Schedule #{uuid}"
-            Collector.post_asset(uuid, "b:B2mmlProductionSchedule", schedule)
+            Collector.post_asset(uuid, "b:B2mmlProductionSchedule", "itamco_QUPID", schedule)
             
             @order_cache[order.mo_id] = order
           end
@@ -105,7 +105,7 @@ class DBReader
             
             tool_details = ""
             uuid = CuttingTool::write_cutting_tool(tool, tool_details)
-            Collector.post_asset(uuid, "CuttingToolArchetype", tool_details)
+            Collector.post_asset(uuid, "CuttingToolArchetype", "itamco_Presetter", tool_details)
             
             @tool_cache[tool.sid] = tool
           end

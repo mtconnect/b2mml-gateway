@@ -1,6 +1,0 @@
-﻿/*------------------------ manufacturing_tools_bot
-SELECT *
-FROM [QUPID].[dbo].[manufacturing_tools_bot]
-------------------------*/
-sid|mo_id|mo_op_id|bot_rev|bot_rev_date|create_sid|create_date|change_sid|change_date|change_count|delete_sid|delete_date
-1|M17-10003|040|1|2017-05-04 00:00:00.000|1|2017-05-04 00:00:00.000|1|2017-05-04 00:00:00.000|1|NULL|NULL

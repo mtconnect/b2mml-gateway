@@ -23,13 +23,14 @@ files = Dir["#{$data_dir}/*.rpt"]
 
 
 files.each do |name|
+  puts "Openin file #{name}"
   file = File.open(name, mode: 'r:UTF-8')
   text = file.read(2048)
   parser = StringScanner.new(text)
 
-  parser.skip(/[^\/]*\/\*-+\s+/mi)
+  parser.skip(/[^\/]*\/\*-+\s+.+ from /mi)
   p parser
-  table_name = parser.scan(/\w+/)
+  table_name, = parser.scan(/\w+/)
   parser.skip(/.+?----------+\*\/[^\n]\n/m)
   start = parser.pos
 

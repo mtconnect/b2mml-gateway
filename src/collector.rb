@@ -117,17 +117,17 @@ class Collector
     end
   end
 
-  def self.post_asset(uuid, type, data)
+  def self.post_asset(uuid, type, device, data)
     unless @@singleton.nil?
-      @@singleton.post_asset(uuid, type, data)
+      @@singleton.post_asset(uuid, type, device, data)
     else
       logger.error "There is no singleton object"
     end
   end
 
-  def post_asset(uuid, type, data)
+  def post_asset(uuid, type, device, data)
     http, path, dev = http_client
-    resp = http.post("#{path}asset/#{uuid}?type=#{type}&device=#{dev}", data, { 'ContentType' => 'text/xml' })
+    resp = http.post("#{path}asset/#{uuid}?type=#{type}&device=#{device}", data, { 'ContentType' => 'text/xml' })
     if resp.code == '200'
       logger.info "post returned: #{resp.body}"
     else
