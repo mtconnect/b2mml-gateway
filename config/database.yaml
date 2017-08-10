@@ -1,9 +1,7 @@
 production: &prod
   adapter: 'tinytds'
-  host: 'localhost'
+  host: 'VSV-SQL12-05'
   database: 'QUPID'
-  username: 'vimana'
-  password: 'password'
 
 debug: *prod
 

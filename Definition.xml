@@ -1,9 +1,0 @@
-<b:B2mmlProductDefinition assetId='46669aae-11f6-5d2a-b8d1-72d0a6ee4cb2' timestamp='2017-07-18T22:46:00Z' deviceUuid='device'>
-  <ProductDefinition xmlns='http://www.mesa.org/xml/B2MML-V0600'>
-    <ID>PARC-0001 </ID>
-    <Description>Sprocket Assy, Rev. 00 A/W, Ring, Sprocket 5T-42X146</Description>
-    <ProductSegment>
-      <ID>PARC-0001 </ID>
-    </ProductSegment>
-  </ProductDefinition>
-</b:B2mmlProductDefinition>
