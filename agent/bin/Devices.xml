@@ -1,181 +1,288 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <MTConnectDevices xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns='urn:mtconnect.org:MTConnectDevices:1.3' xmlns:m='urn:mtconnect.org:MTConnectDevices:1.3' xsi:schemaLocation='urn:mtconnect.org:MTConnectDevices:1.3 http://www.mtconnect.org/schemas/MTConnectDevices_1.3.xsd'>
-  <Header creationTime='2017-07-11T22:39:51Z' assetBufferSize='1024' sender='localhost' assetCount='0' version='1.3' instanceId='0' bufferSize='131072'/>
+  <Header creationTime='2017-08-09T09:03:32Z' assetBufferSize='1024' sender='localhost' assetCount='0' version='1.3' instanceId='0' bufferSize='131072'/>
   <Devices>
-	<device name="presetter" uuid="presetter" id="pre">
-		<Description>Presetter placeholder</Description>
-		<DataItems>
-			<DataItem type="AVAILABILITY" category="EVENT" id="pre_1" name="avail"/>
-		<DataItems>
-	</Device>
-    <Device name='mitsubishi_CNC' uuid='mitsubishi_CNC_5b1b61' id='CNC_1'>
-      <Description model='M730' manufacturer='Mitsubishi'>5 Axis Milling - Single path simulator</Description>
-	  
+    <Device name='itamco_Haas' uuid='itamco_Haas_1c2bc0' id='Haas_1'>
+      <Description model='Generic' manufacturer='Haas'>Haas 5 Axis - Haas</Description>
       <DataItems>
-        <DataItem type='AVAILABILITY' category='EVENT' id='dtop_2' name='avail'/>
+        <DataItem type='AVAILABILITY' category='EVENT' id='dtop_2' name='availability'/>
         <DataItem type='EMERGENCY_STOP' category='EVENT' id='dtop_3' name='estop'/>
-        <DataItem type='LOGIC_PROGRAM' category='CONDITION' id='dtop_4' name='logic'/>
-        <DataItem type='SYSTEM' category='CONDITION' id='dtop_5' name='system'/>
+        <DataItem type='SYSTEM' category='CONDITION' id='dtop_4' name='system'/>
         <!-- Useful Life -->
-        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_6' name='rulr' subType='REMAINING' units="SECOND"/>
-        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_7' name='ruld' subType='INTERVAL' units="SECOND" representation="DISCRETE"/>
+        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_5' name='rulr' subType='REMAINING' units='SECOND'/>
+        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_6' name='ruld' subType='INTERVAL' units='SECOND'/>
         <!-- Equipment Timers -->
-        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_8' name='operating_time' subType='OPERATING' units="SECOND" representation="DISCRETE"/>
-        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_9' name='working_time' subType='WORKING' units="SECOND" representation="DISCRETE"/>
-        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_10' name='powered_time' subType='POWERED' units="SECOND" representation="DISCRETE"/>
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_7' name='operating_time' subType='OPERATING' units='SECOND'/>
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_8' name='working_time' subType='WORKING' units='SECOND'/>
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_9' name='powered_time' subType='POWERED' units='SECOND'/>
+        <!-- Enrich -->
+        <DataItem type='ENRICH_CLASSIFICATION' category='EVENT' id='dtop_10' name='enrich_classification'/>
+        <DataItem type='PART_ARCHETYPE_ID' category='EVENT' id='dtop_11' name='enrich_part_kind'/>
+        <DataItem type='PROCESS_ARCHETYPE_ID' category='EVENT' id='dtop_12' name='enrich_part_process'/>
+        <DataItem type='PART_INSTANCE_ID' category='EVENT' id='dtop_13' name='enrich_part_instance'/>
+        <DataItem type='PART_COUNT' category='EVENT' id='dtop_14' name='enrich_delta_part_count' subType='GOOD' representation='DISCRETE'/>
+        <DataItem type='TOOL_ASSET_ID' category='EVENT' id='dtop_15' name='enrich_tool_name'/>
       </DataItems>
       <Components>
-        <Axes name='axes' id='axes_11'>
+        <Axes name='axes' id='axes_16'>
           <Components>
-            <Linear name='X' id='X_12'>
+            <Linear name='X' id='X_17'>
               <DataItems>
-                <DataItem type='POSITION' category='SAMPLE' id='X_13' name='X_pos' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
-                <DataItem type='POSITION' category='SAMPLE' id='X_14' name='X_prog' subType='PROGRAMMED' units='MILLIMETER' nativeUnits='MILLIMETER'/>
-                <DataItem type='LOAD' category='SAMPLE' id='X_15' name='X_load' units='PERCENT' nativeUnits='PERCENT'/>
-                <DataItem type='POSITION' category='CONDITION' id='X_16' name='X_travel'/>
-                <DataItem type='SYSTEM' category='CONDITION' id='X_17' name='X_system'/>
-                <DataItem type='LOAD' category='CONDITION' id='X_18' name='X_load_cond'/>
+                <DataItem type='POSITION' category='SAMPLE' id='X_18' name='X_actual' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
               </DataItems>
             </Linear>
             <Linear name='Y' id='Y_19'>
               <DataItems>
-                <DataItem type='POSITION' category='SAMPLE' id='Y_20' name='Y_pos' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
-                <DataItem type='POSITION' category='SAMPLE' id='Y_21' name='Y_prog' subType='PROGRAMMED' units='MILLIMETER' nativeUnits='MILLIMETER'/>
-                <DataItem type='LOAD' category='SAMPLE' id='Y_22' name='Y_load' units='PERCENT' nativeUnits='PERCENT'/>
-                <DataItem type='POSITION' category='CONDITION' id='Y_23' name='Y_travel'/>
-                <DataItem type='SYSTEM' category='CONDITION' id='Y_24' name='Y_system'/>
-                <DataItem type='LOAD' category='CONDITION' id='Y_25' name='Y_load_cond'/>
+                <DataItem type='POSITION' category='SAMPLE' id='Y_20' name='Y_actual' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
               </DataItems>
             </Linear>
-            <Linear name='Z' id='Z_26'>
+            <Linear name='Z' id='Z_21'>
               <DataItems>
-                <DataItem type='POSITION' category='SAMPLE' id='Z_27' name='Z_pos' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
-                <DataItem type='POSITION' category='SAMPLE' id='Z_28' name='Z_prog' subType='PROGRAMMED' units='MILLIMETER' nativeUnits='MILLIMETER'/>
-                <DataItem type='LOAD' category='SAMPLE' id='Z_29' name='Z_load' units='PERCENT' nativeUnits='PERCENT'/>
-                <DataItem type='POSITION' category='CONDITION' id='Z_30' name='Z_travel'/>
-                <DataItem type='SYSTEM' category='CONDITION' id='Z_31' name='Z_system'/>
-                <DataItem type='LOAD' category='CONDITION' id='Z_32' name='Z_load_cond'/>
+                <DataItem type='POSITION' category='SAMPLE' id='Z_22' name='Z_actual' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
               </DataItems>
             </Linear>
-            <Rotary name='A' id='A_33'>
+            <Rotary name='A' id='A_23'>
               <DataItems>
-                <DataItem type='ANGLE' category='SAMPLE' id='A_34' name='A_angle' subType='ACTUAL' units='DEGREE' nativeUnits='DEGREE'/>
-                <DataItem type='ANGLE' category='SAMPLE' id='A_35' name='A_prog' subType='PROGRAMMED' units='DEGREE' nativeUnits='DEGREE'/>
-                <DataItem type='LOAD' category='SAMPLE' id='A_36' name='A_load' units='PERCENT' nativeUnits='PERCENT'/>
-                <DataItem type='ROTARY_MODE' category='EVENT' id='A_37'>
-                  <Constraints>
-                    <Value>INDEX</Value>
-                  </Constraints>
-                </DataItem>
-                <DataItem type='POSITION' category='CONDITION' id='A_38' name='A_travel'/>
-                <DataItem type='SYSTEM' category='CONDITION' id='A_39' name='A_system'/>
-                <DataItem type='LOAD' category='CONDITION' id='A_40' name='A_load_cond'/>
+                <DataItem type='ANGLE' category='SAMPLE' id='A_24' name='A_actual' subType='ACTUAL' units='DEGREE' nativeUnits='DEGREE'/>
               </DataItems>
             </Rotary>
-            <Rotary name='B' id='B_41'>
+            <Rotary name='B' id='B_25'>
               <DataItems>
-                <DataItem type='ANGLE' category='SAMPLE' id='B_42' name='B_angle' subType='ACTUAL' units='DEGREE' nativeUnits='DEGREE'/>
-                <DataItem type='ANGLE' category='SAMPLE' id='B_43' name='B_prog' subType='PROGRAMMED' units='DEGREE' nativeUnits='DEGREE'/>
-                <DataItem type='LOAD' category='SAMPLE' id='B_44' name='B_load' units='PERCENT' nativeUnits='PERCENT'/>
-                <DataItem type='ROTARY_MODE' category='EVENT' id='B_45'>
-                  <Constraints>
-                    <Value>INDEX</Value>
-                  </Constraints>
-                </DataItem>
-                <DataItem type='POSITION' category='CONDITION' id='B_46' name='B_travel'/>
-                <DataItem type='SYSTEM' category='CONDITION' id='B_47' name='B_system'/>
-                <DataItem type='LOAD' category='CONDITION' id='B_48' name='B_load_cond'/>
+                <DataItem type='ANGLE' category='SAMPLE' id='B_26' name='B_actual' subType='ACTUAL' units='DEGREE' nativeUnits='DEGREE'/>
               </DataItems>
             </Rotary>
-            <Rotary name='C' nativeName='S1' id='C_49'>
+            <Rotary name='C' nativeName='S' id='C_27'>
               <DataItems>
-                <DataItem type='ROTARY_VELOCITY' category='SAMPLE' id='C_50' name='S1_speed' subType='ACTUAL' units='REVOLUTION/MINUTE' nativeUnits='REVOLUTION/MINUTE'/>
-                <DataItem type='ROTARY_VELOCITY' category='SAMPLE' id='C_51' name='S1_speed_prog' subType='PROGRAMMED' units='REVOLUTION/MINUTE' nativeUnits='REVOLUTION/MINUTE'/>
-                <DataItem type='LOAD' category='SAMPLE' id='C_52' name='S1_load' units='PERCENT' nativeUnits='PERCENT'/>
-                <DataItem type='ROTARY_VELOCITY_OVERRIDE' category='EVENT' id='C_53' name='S1_SSO'/>
-                <DataItem type='DIRECTION' category='EVENT' id='C_54' name='S1_dir'/>
-                <DataItem type='ROTARY_MODE' category='EVENT' id='C_55'>
-                  <Constraints>
-                    <Value>SPINDLE</Value>
-                  </Constraints>
-                </DataItem>
-                <DataItem type='SYSTEM' category='CONDITION' id='C_56' name='S1_system'/>
-                <DataItem type='LOAD' category='CONDITION' id='C_57' name='S1_load_cond'/>
+                <DataItem type='ROTARY_VELOCITY' category='SAMPLE' id='C_28' name='sp_speed' subType='ACTUAL' units='REVOLUTION/MINUTE' nativeUnits='REVOLUTION/MINUTE'/>
                 <!-- Spindle Capability -->
-                <DataItem type='CAPABILITY_ROTARY_VELOCITY' category='EVENT' id='C_58' name='cap_rv' subType='MAXIMUM' units="REVOLUTION/MINUTE"/>
+                <DataItem type='CAPABILITY_ROTARY_VELOCITY' category='EVENT' id='C_29' name='cap_rv' subType='MAXIMUM' units='REVOLUTION/MINUTE'/>
               </DataItems>
             </Rotary>
           </Components>
         </Axes>
-        <Controller name='controller' id='controller_59'>
+        <Controller name='controller' id='controller_30'>
+          <DataItems>
+            <DataItem type='PART_COUNT' category='EVENT' id='controller_31' name='part_count'/>
+          </DataItems>
           <Components>
-            <Path name='p1' id='p1_60'>
+            <Path name='path' id='path_32'>
+              <Configuration>
+	  		    <Specifications>
+		  			<Specification type="KINEMATIC" id="haas_kin">
+		  				<Value>w (C) b Z X (C2) t</Value>
+		  			</Specification>
+	  		    </Specifications>
+	          </Configuration>
+				
               <DataItems>
                 <!-- Events -->
-                <DataItem type='EXECUTION' category='EVENT' id='p1_61' name='execution_1'/>
-                <DataItem type='CONTROLLER_MODE' category='EVENT' id='p1_62' name='mode_1'/>
-                <DataItem type='LINE_LABEL' category='EVENT' id='p1_63' name='line_label_1'/>
-                <DataItem type='LINE_NUMBER' category='EVENT' id='p1_64' name='line_number_1'/>
-                <DataItem type='PROGRAM' category='EVENT' id='p1_65' name='program_1'/>
-                <DataItem type='PROGRAM_HEADER' category='EVENT' id='p1_66' name='header_1'/>
-                <DataItem type='BLOCK' category='EVENT' id='p1_67' name='block_1'/>
-                <DataItem type='ACTIVE_AXES' category='EVENT' id='p1_68' name='active_axes_1'/>
-                <DataItem type='PROGRAM' category='EVENT' id='p1_69' name='sub_prog_1' subType='x:SUB_PROGRAM'/>
-                <DataItem type='TOOL_ID' category='EVENT' id='p1_70' name='tool_id_1'/>
-                <DataItem type='PART_COUNT' category='EVENT' id='p1_71' name='part_count_1'/>
-                <DataItem type='TOOL_NUMBER' category='EVENT' id='p1_72' name='spindle_tool_1'/>
-                <DataItem type='TOOL_NUMBER' category='EVENT' id='p1_73' name='spindle_tool_1' subType='x:STANDBY'/>
-                <DataItem type='PATH_FEEDRATE_OVERRIDE' category='EVENT' id='p1_74' name='Fovr_1'/>
-                <DataItem type='PATH_FEEDRATE_OVERRIDE' category='EVENT' id='p1_75' name='Frovr_1' subType='RAPID'/>
-                <DataItem type='MESSAGE' category='EVENT' id='p1_76' name='message_1'/>
-                <DataItem type='x:PROGRAM_EDIT' category='EVENT' id='p1_77' name='program_edit_1'/>
-                <DataItem type='x:PROGRAM_EDIT_NAME' category='EVENT' id='p1_78' name='program_edit_name_1'/>
-                <DataItem type='PART_COUNT' category='EVENT' id='p1_79' name='target_part_count_1' subType='TARGET'/>
-                <DataItem type='x:CONTROLLER_MODE_OVERRIDE' category='EVENT' id='p1_80' name='dry_run_1' subType='x:DRY_RUN'/>
-                <DataItem type='x:CONTROLLER_MODE_OVERRIDE' category='EVENT' id='p1_81' name='single_block_1' subType='x:SINGLE_BLOCK'/>
-                <DataItem type='x:EQUIPMENT_MODE' category='EVENT' id='p1_82' name='loaded_1' subType='x:LOADED'/>
-                <DataItem type='x:EQUIPMENT_MODE' category='EVENT' id='p1_83' name='rapid_1' subType='x:RAPID'/>
-                <DataItem type='x:EQUIPMENT_MODE' category='EVENT' id='p1_84' name='tapping_1' subType='x:TAPPING'/>
-                <!-- Samples -->
-                <DataItem type='PATH_FEEDRATE' category='SAMPLE' id='p1_85' name='F_1' subType='ACTUAL' units='MILLIMETER/SECOND' nativeUnits='MILLIMETER/SECOND'/>
-                <DataItem type='PATH_FEEDRATE' category='SAMPLE' id='p1_86' name='Fcom_1' subType='PROGRAMMED' units='MILLIMETER/SECOND' nativeUnits='MILLIMETER/SECOND'/>
-                <DataItem type='PATH_POSITION' category='SAMPLE' id='p1_87' name='path_pos_1' units='MILLIMETER_3D' nativeUnits='MILLIMETER_3D'/>
-                <!-- Conditions -->
-                <DataItem type='LOGIC_PROGRAM' category='CONDITION' id='p1_88' name='logic_1'/>
-                <DataItem type='MOTION_PROGRAM' category='CONDITION' id='p1_89' name='motion_1'/>
-                <DataItem type='SYSTEM' category='CONDITION' id='p1_90' name='system_1'/>
+                <DataItem type='EXECUTION' category='EVENT' id='path_33' name='execution'/>
+                <DataItem type='CONTROLLER_MODE' category='EVENT' id='path_34' name='mode'/>
+                <DataItem type='PROGRAM' category='EVENT' id='path_35' name='program'/>
                 <!-- Machine Accuracy -->
-                <DataItem type='CAPABILITY_PATH_POSITION' category='EVENT' id='p1_91' name='cap_position' subType='MINIMUM' units='MILLIMETER_3D'/>
-                <DataItem type='CAPABILITY_PATH_FEEDRATE' category='EVENT' id='p1_91' name='cap_feed' subType='MINIMUM' units='MILLIMETER/SECOND'/>
+                <DataItem type='CAPABILITY_PATH_POSITION' category='EVENT' id='path_36' name='cap_position' subType='MINIMUM' units='MILLIMETER_3D'/>
               </DataItems>
             </Path>
           </Components>
         </Controller>
-        <Systems name='systems' id='systems_92'>
-          <Components>
-            <Pneumatic name='pneumatic' id='pneumatic_93'>
-              <DataItems>
-                <DataItem type='SYSTEM' category='CONDITION' id='pneumatic_94' name='pneumatic_system'/>
-              </DataItems>
-            </Pneumatic>
-            <Coolant name='coolant' id='coolant_95'>
-              <DataItems>
-                <DataItem type='SYSTEM' category='CONDITION' id='coolant_96' name='coolant_system'/>
-              </DataItems>
-            </Coolant>
-            <Hydraulic name='hydraulic' id='hydraulic_97'>
-              <DataItems>
-                <DataItem type='SYSTEM' category='CONDITION' id='hydraulic_98' name='hydraulic_system'/>
-              </DataItems>
-            </Hydraulic>
-            <Lubrication name='lubrication' id='lubrication_99'>
-              <DataItems>
-                <DataItem type='SYSTEM' category='CONDITION' id='lubrication_100' name='lubrication_system'/>
-              </DataItems>
-            </Lubrication>
-          </Components>
-        </Systems>
       </Components>
+    </Device>
+    <Device name='itamco_DMG' uuid='itamco_DMG_c57156' id='DMG_37'>
+      <Description model='DMG 70' manufacturer='DMG'>DMG 70 - DMG</Description>
+      <DataItems>
+        <DataItem type='AVAILABILITY' category='EVENT' id='dtop_38' name='availability'/>
+        <DataItem type='SYSTEM' category='CONDITION' id='dtop_39' name='system'/>
+        <DataItem type='EMERGENCY_STOP' category='EVENT' id='dtop_40' name='estop'/>
+        <DataItem type='SYSTEM' category='CONDITION' id='dtop_41' name='system'/>
+        <DataItem type='ACTUATOR' category='CONDITION' id='dtop_42' name='actuator'/>
+        <DataItem type='LOGIC_PROGRAM' category='CONDITION' id='dtop_43' name='logic_program'/>
+        <!-- Useful Life -->
+        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_44' name='rulr' subType='REMAINING' units='SECOND'/>
+        <DataItem type='USEFUL_LIFE' category='EVENT' id='dtop_45' name='ruld' subType='INTERVAL' units='SECOND'/>
+        <!-- Equipment Timers -->
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_46' name='operating_time' subType='OPERATING' units='SECOND'/>
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_47' name='working_time' subType='WORKING' units='SECOND'/>
+        <DataItem type='EQUIPMENT_TIMER' category='EVENT' id='dtop_48' name='powered_time' subType='POWERED' units='SECOND'/>
+        <!-- Enrich -->
+        <DataItem type='ENRICH_CLASSIFICATION' category='EVENT' id='dtop_49' name='enrich_classification'/>
+        <DataItem type='PART_ARCHETYPE_ID' category='EVENT' id='dtop_50' name='enrich_part_kind'/>
+        <DataItem type='PROCESS_ARCHETYPE_ID' category='EVENT' id='dtop_51' name='enrich_part_process'/>
+        <DataItem type='PART_INSTANCE_ID' category='EVENT' id='dtop_52' name='enrich_part_instance'/>
+        <DataItem type='PART_COUNT' category='EVENT' id='dtop_53' name='enrich_delta_part_count' subType='GOOD' representation='DISCRETE'/>
+        <DataItem type='TOOL_ASSET_ID' category='EVENT' id='dtop_54' name='enrich_tool_name'/>
+      </DataItems>
+      <Components>
+        <Axes name='axes' id='axes_55'>
+          <Components>
+            <Linear name='X1' id='X1_56'>
+              <DataItems>
+                <DataItem type='POSITION' category='SAMPLE' id='X1_57' name='X1_act' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
+                <DataItem type='LOAD' category='SAMPLE' id='X1_58' name='X1_load' units='PERCENT' nativeUnits='PERCENT'/>
+              </DataItems>
+            </Linear>
+            <Linear name='X2' id='X2_59'>
+              <DataItems>
+                <DataItem type='POSITION' category='SAMPLE' id='X2_60' name='X2_act' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
+                <DataItem type='LOAD' category='SAMPLE' id='X2_61' name='X2_load' units='PERCENT' nativeUnits='PERCENT'/>
+              </DataItems>
+            </Linear>
+            <Linear name='Y1' id='Y1_62'>
+              <DataItems>
+                <DataItem type='POSITION' category='SAMPLE' id='Y1_63' name='Y1_act' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
+                <DataItem type='LOAD' category='SAMPLE' id='Y1_64' name='Y1_load' units='PERCENT' nativeUnits='PERCENT'/>
+              </DataItems>
+            </Linear>
+            <Linear name='Z1' id='Z1_65'>
+              <DataItems>
+                <DataItem type='POSITION' category='SAMPLE' id='Z1_66' name='Z1_act' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
+                <DataItem type='LOAD' category='SAMPLE' id='Z1_67' name='Z1_load' units='PERCENT' nativeUnits='PERCENT'/>
+              </DataItems>
+            </Linear>
+            <Linear name='Z2' id='Z2_68'>
+              <DataItems>
+                <DataItem type='POSITION' category='SAMPLE' id='Z2_69' name='Z2_act' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
+                <DataItem type='LOAD' category='SAMPLE' id='Z2_70' name='Z2_load' units='PERCENT' nativeUnits='PERCENT'/>
+              </DataItems>
+            </Linear>
+            <Linear name='Z3' id='Z3_71'>
+              <DataItems>
+                <DataItem type='POSITION' category='SAMPLE' id='Z3_72' name='Z3_act' subType='ACTUAL' units='MILLIMETER' nativeUnits='MILLIMETER'/>
+                <DataItem type='LOAD' category='SAMPLE' id='Z3_73' name='Z3_load' units='PERCENT' nativeUnits='PERCENT'/>
+              </DataItems>
+            </Linear>
+            <Rotary name='B1' id='B1_74'>
+              <DataItems>
+                <DataItem type='ANGLE' category='SAMPLE' id='B1_75' name='B1_act' subType='ACTUAL' units='DEGREE' nativeUnits='DEGREE'/>
+                <DataItem type='LOAD' category='SAMPLE' id='B1_76' name='B1_load' units='PERCENT' nativeUnits='PERCENT'/>
+                <DataItem type='ROTARY_MODE' category='EVENT' id='B1_77'>
+                  <Constraints>
+                    <Value>INDEX</Value>
+                  </Constraints>
+                </DataItem>
+              </DataItems>
+            </Rotary>
+            <Rotary name='C1' id='C1_78'>
+              <DataItems>
+                <DataItem type='LOAD' category='SAMPLE' id='C1_79' name='C1_load' units='PERCENT' nativeUnits='PERCENT'/>
+                <DataItem type='ROTARY_VELOCITY' category='SAMPLE' id='C1_80' name='C1_speed' units='REVOLUTION/MINUTE' nativeUnits='REVOLUTION/MINUTE'/>
+                <DataItem type='DIRECTION' category='EVENT' id='C1_81' name='C1_dir'/>
+                <DataItem type='ROTARY_MODE' category='EVENT' id='C1_82' name='C1_mode'/>
+                <!-- Spindle Capability -->
+                <DataItem type='CAPABILITY_ROTARY_VELOCITY' category='EVENT' id='C1_83' name='cap_rv' subType='MAXIMUM' units='REVOLUTION/MINUTE'/>
+              </DataItems>
+            </Rotary>
+            <Rotary name='C2' id='C2_84'>
+              <DataItems>
+                <DataItem type='LOAD' category='SAMPLE' id='C2_85' name='C2_load' units='PERCENT' nativeUnits='PERCENT'/>
+                <DataItem type='ROTARY_VELOCITY' category='SAMPLE' id='C2_86' name='C2_speed' units='REVOLUTION/MINUTE' nativeUnits='REVOLUTION/MINUTE'/>
+                <DataItem type='DIRECTION' category='EVENT' id='C2_87' name='C2_dir'/>
+                <DataItem type='ROTARY_MODE' category='EVENT' id='C2_88' name='C2_mode'/>
+                <!-- Spindle Capability -->
+                <DataItem type='CAPABILITY_ROTARY_VELOCITY' category='EVENT' id='C2_89' name='cap_rv' subType='MAXIMUM' units='REVOLUTION/MINUTE'/>
+              </DataItems>
+            </Rotary>
+            <Rotary name='C3' id='C3_90'>
+              <DataItems>
+                <DataItem type='LOAD' category='SAMPLE' id='C3_91' name='C3_load' units='PERCENT' nativeUnits='PERCENT'/>
+                <DataItem type='ROTARY_VELOCITY' category='SAMPLE' id='C3_92' name='C3_speed' units='REVOLUTION/MINUTE' nativeUnits='REVOLUTION/MINUTE'/>
+                <DataItem type='DIRECTION' category='EVENT' id='C3_93' name='C3_dir'/>
+                <DataItem type='ROTARY_MODE' category='EVENT' id='C3_94' name='C3_mode'/>
+                <!-- Spindle Capability -->
+                <DataItem type='CAPABILITY_ROTARY_VELOCITY' category='EVENT' id='C3_95' name='cap_rv' subType='MAXIMUM' units='REVOLUTION/MINUTE'/>
+              </DataItems>
+            </Rotary>
+            <Rotary name='C4' id='C4_96'>
+              <DataItems>
+                <DataItem type='LOAD' category='SAMPLE' id='C4_97' name='C4_load' units='PERCENT' nativeUnits='PERCENT'/>
+                <DataItem type='ROTARY_VELOCITY' category='SAMPLE' id='C4_98' name='C4_speed' units='REVOLUTION/MINUTE' nativeUnits='REVOLUTION/MINUTE'/>
+                <DataItem type='DIRECTION' category='EVENT' id='C4_99' name='C4_dir'/>
+                <DataItem type='ROTARY_MODE' category='EVENT' id='C4_100' name='C4_mode'/>
+                <!-- Spindle Capability -->
+                <DataItem type='CAPABILITY_ROTARY_VELOCITY' category='EVENT' id='C4_101' name='cap_rv' subType='MAXIMUM' units='REVOLUTION/MINUTE'/>
+              </DataItems>
+            </Rotary>
+          </Components>
+        </Axes>
+        <Controller name='controller' id='controller_102'>
+          <DataItems>
+            <DataItem type='CONTROLLER_MODE' category='EVENT' id='controller_103' name='cn1_mode'/>
+          </DataItems>
+          <Components>
+            <Path name='p1' id='p1_104'>
+              <DataItems>
+                <!-- Events -->
+                <DataItem type='EXECUTION' category='EVENT' id='p1_105' name='p1_execution'/>
+                <DataItem type='LINE' category='EVENT' id='p1_106' name='p1_line'/>
+                <DataItem type='PROGRAM' category='EVENT' id='p1_107' name='p1_program'/>
+                <DataItem type='x:SINGLE_BLOCK' category='EVENT' id='p1_108' name='p1_single_block'/>
+                <DataItem type='x:PROGRAM_COMMENT' category='EVENT' id='p1_109' name='p1_comment'/>
+                <DataItem type='TOOL_NUMBER' category='EVENT' id='p1_110' name='p1_tool_id'/>
+                <DataItem type='x:TOOL_LENGTH_1' category='EVENT' id='p1_111' name='p1_tool_length1'/>
+                <DataItem type='x:TOOL_LENGTH_2' category='EVENT' id='p1_112' name='p1_tool_length2'/>
+                <DataItem type='x:TOOL_LENGTH_3' category='EVENT' id='p1_113' name='p1_tool_length3'/>
+                <DataItem type='x:TOOL_RADIUS' category='EVENT' id='p1_114' name='p1_tool_radius'/>
+                <DataItem type='BLOCK' category='EVENT' id='p1_115' name='p1_block'/>
+                <DataItem type='MESSAGE' category='EVENT' id='p1_116' name='p1_message'/>
+                <DataItem type='ACTIVE_AXES' category='EVENT' id='p1_117' name='p1_active_axes'/>
+                <DataItem type='x:ACTIVE_AXES_COUNT' category='EVENT' id='p1_118' name='p1_number_active_axes'/>
+                <DataItem type='PART_COUNT' category='EVENT' id='p1_119' name='p1_part_count'/>
+                <!-- Samples -->
+                <DataItem type='PATH_FEEDRATE_OVERRIDE' category='EVENT' id='p1_120' name='p1_feedrate_override' subType='OVERRIDE' units='PERCENT' nativeUnits='PERCENT'/>
+                <DataItem type='PATH_FEEDRATE_OVERRIDE' category='EVENT' id='p1_121' name='p1_rapid_override' subType='RAPID' units='PERCENT'/>
+                <DataItem type='ROTARY_VELOCITY_OVERRIDE' category='EVENT' id='p1_122' name='p1_spindle_override' units='PERCENT'/>
+                <!-- Conditions -->
+                <DataItem type='SYSTEM' category='CONDITION' id='p1_123' name='p1_system'/>
+                <!-- Machine Accuracy -->
+                <DataItem type='CAPABILITY_PATH_POSITION' category='EVENT' id='p1_124' name='cap_position' subType='MINIMUM' units='MILLIMETER_3D'/>
+              </DataItems>
+            </Path>
+            <Path name='p2' id='p2_125'>
+              <DataItems>
+                <!-- Events -->
+                <DataItem type='EXECUTION' category='EVENT' id='p2_126' name='p2_execution'/>
+                <DataItem type='LINE' category='EVENT' id='p2_127' name='p2_line'/>
+                <DataItem type='PROGRAM' category='EVENT' id='p2_128' name='p2_program'/>
+                <DataItem type='x:SINGLE_BLOCK' category='EVENT' id='p2_129' name='p2_single_block'/>
+                <DataItem type='x:PROGRAM_COMMENT' category='EVENT' id='p2_130' name='p2_comment'/>
+                <DataItem type='TOOL_NUMBER' category='EVENT' id='p2_131' name='p2_tool_id'/>
+                <DataItem type='x:TOOL_LENGTH_1' category='EVENT' id='p2_132' name='p2_tool_length1'/>
+                <DataItem type='x:TOOL_LENGTH_2' category='EVENT' id='p2_133' name='p2_tool_length2'/>
+                <DataItem type='x:TOOL_LENGTH_3' category='EVENT' id='p2_134' name='p2_tool_length3'/>
+                <DataItem type='x:TOOL_RADIUS' category='EVENT' id='p2_135' name='p2_tool_radius'/>
+                <DataItem type='BLOCK' category='EVENT' id='p2_136' name='p2_block'/>
+                <DataItem type='MESSAGE' category='EVENT' id='p2_137' name='p2_message'/>
+                <DataItem type='ACTIVE_AXES' category='EVENT' id='p2_138' name='p2_active_axes'/>
+                <DataItem type='x:ACTIVE_AXES_COUNT' category='EVENT' id='p2_139' name='p2_number_active_axes'/>
+                <DataItem type='PART_COUNT' category='EVENT' id='p2_140' name='p2_part_count'/>
+                <!-- Samples -->
+                <DataItem type='PATH_FEEDRATE_OVERRIDE' category='EVENT' id='p2_141' name='p2_feedrate_override' subType='OVERRIDE' units='PERCENT' nativeUnits='PERCENT'/>
+                <DataItem type='PATH_FEEDRATE_OVERRIDE' category='EVENT' id='p2_142' name='p2_rapid_override' subType='RAPID' units='PERCENT'/>
+                <DataItem type='ROTARY_VELOCITY_OVERRIDE' category='EVENT' id='p2_143' name='p2_spindle_override' units='PERCENT'/>
+                <!-- Conditions -->
+                <DataItem type='SYSTEM' category='CONDITION' id='p2_144' name='p2_system'/>
+                <!-- Machine Accuracy -->
+                <DataItem type='CAPABILITY_PATH_POSITION' category='EVENT' id='p2_145' name='cap_position' subType='MINIMUM' units='MILLIMETER_3D'/>
+              </DataItems>
+            </Path>
+          </Components>
+        </Controller>
+      </Components>
+    </Device>
+    <Device name='itamco_Preseter' uuid='itamco_Preseter_604778' id='Preseter_146'>
+      <Description model='Generic' manufacturer='ITAMCO'>App - Presetter Database</Description>
+      <DataItems>
+        <DataItem type='AVAILABILITY' category='EVENT' id='dtop_147' name='availability'/>
+        <DataItem type='SYSTEM' category='CONDITION' id='dtop_148' name='system'/>
+      </DataItems>
+      <Components/>
+    </Device>
+    <Device name='itamco_QUPID' uuid='itamco_QUPID_6ee5c9' id='QUPID_149'>
+      <Description model='Generic' manufacturer='ITAMCO'>App - QUPID ERP/MES</Description>
+      <DataItems>
+        <DataItem type='AVAILABILITY' category='EVENT' id='dtop_150' name='availability'/>
+        <DataItem type='SYSTEM' category='CONDITION' id='dtop_151' name='system'/>
+      </DataItems>
+      <Components/>
     </Device>
   </Devices>
 </MTConnectDevices>
