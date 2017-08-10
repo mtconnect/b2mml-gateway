@@ -11,7 +11,8 @@ class DBReader
   def initialize
     @output_dir = File.join(File.dirname(__FILE__), '..', 'output')
     @running = false
-    @cache = Hash.new
+    @tool_cache = Hash.new
+    @order_cache = Hash.new
   end
 
   @@instance = DBReader.new
@@ -20,8 +21,44 @@ class DBReader
     @@instance
   end
 
-  def new_or_changed(key)
-    return !@cache.has_key?(key)
+  def tool_changed(tool)
+    old = @tool_cache[tool.sid]
+    changed = old.nil?
+    if old
+      tool.columns.each do |col|
+        changed = old.send(col) != tool.send(col)
+        break if changed
+      end
+      if changed
+        logger.info "**** Tool has changed: #{tool.sid}"
+      else
+        logger.info "**** Tool has not changed: #{tool.sid}"
+      end
+    else
+      logger.info "***** New tool: #{tool.sid}"
+    end
+  end
+
+  def order_changed(order)
+    old = @order_cache[order.mo_id]
+    changed = old.nil?
+    if old
+      # Do field-wise compare
+      order.columns.each do |col|
+        changed = old.send(col) != order.send(col)
+        break if changed
+      end
+
+      if changed
+        logger.info "******* Order has changed: #{order.mo_id}"
+      else
+        logger.info "******* Order has not changed: #{order.mo_id}"
+      end
+    else
+      logger.info "**** New order: #{order.mo_id}"
+    end
+
+    return changed
   end
 
   def start
@@ -35,7 +72,7 @@ class DBReader
         orders = QUPID::Order.where { item_id.like  'PARC%' }
         orders.to_a.each do |order|
           logger.debug "Checking order: #{order.mo_id}"
-          if new_or_changed("Order:#{order.mo_id}")
+          if order_changed(order)
             logger.info "Adding order #{order.mo_id} for job #{order.job_id}"
             
             definition = ""
@@ -48,7 +85,7 @@ class DBReader
             logger.info "Posting Schedule #{uuid}"
             Collector.post_asset(uuid, "b:B2mmlProductionSchedule", schedule)
             
-            @cache[order.mo_id] = order
+            @order_cache[order.mo_id] = order
           end
         end
       rescue
@@ -63,14 +100,14 @@ class DBReader
         tools = QUPID::ToolDetail.all
         tools.to_a.each do |tool|
           logger.debug "Checking order: #{tool.tool_item_id} sid: #{tool.sid}"
-          if new_or_changed("CuttingTool:#{tool.sid}")
+          if tool_changed(tool)
             logger.info "Adding tool #{tool.tool_item_id} sid: #{tool.sid}"
             
             tool_details = ""
             uuid = CuttingTool::write_cutting_tool(tool, tool_details)
             Collector.post_asset(uuid, "CuttingToolArchetype", tool_details)
             
-            @cache[tool.sid] = tool
+            @tool_cache[tool.sid] = tool
           end
         end
       rescue
@@ -82,7 +119,7 @@ class DBReader
 
       
       logger.info "Reader sleeping 60 seconds"
-      sleep 60
+      sleep 20
     end
 
     logger.info "Exiting DB Reader thread"
