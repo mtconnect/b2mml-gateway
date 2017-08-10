@@ -33,10 +33,8 @@ orders.to_a.each do |order|
   # collector.post_asset(uuid, "b:B2mmlProductionSchedule", schedule)
 
 
-  order.tools_bots.each do |t|
+  QUPID::ToolDetail.all.each do |t|
     p t
-
-    p t.tool_details
   end
 end
 

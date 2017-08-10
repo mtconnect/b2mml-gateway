@@ -29,7 +29,7 @@ module B2MML
     uuid = create_definition_asset_id(order.job_id)
     asset.add_attribute("assetId", uuid)
     asset.add_attribute("timestamp", Time.now.utc.iso8601)
-    asset.add_attribute("deviceUuid", "device")
+    asset.add_attribute("deviceUuid", "'itamco_QUPID_6ee5c9")
     
     definition = asset.add_element('ProductDefinition')
     definition.add_namespace("http://www.mesa.org/xml/B2MML-V0600")

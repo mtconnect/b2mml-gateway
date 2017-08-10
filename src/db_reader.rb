@@ -3,6 +3,7 @@ require 'time'
 require 'as-duration'
 require 'configuration.rb'
 require 'b2mml'
+require 'cutting_tool'
 
 class DBReader
   include Logging
@@ -19,8 +20,8 @@ class DBReader
     @@instance
   end
 
-  def new_or_changed(order)
-    return !@cache.has_key?(order.mo_id)
+  def new_or_changed(key)
+    return !@cache.has_key?(key)
   end
 
   def start
@@ -28,15 +29,13 @@ class DBReader
     
     @running = true
     while @running
-
-      today = Date.today
-      logger.info "Requesting orders spanning #{today}"
+      logger.info "Requesting orders for PARC"
 
       begin
-        orders = QUPID::Order.where { start_date <= today and end_date >= today }
+        orders = QUPID::Order.where { item_id.like  'PARC%' }
         orders.to_a.each do |order|
           logger.debug "Checking order: #{order.mo_id}"
-          if new_or_changed(order)
+          if new_or_changed("Order:#{order.mo_id}")
             logger.info "Adding order #{order.mo_id} for job #{order.job_id}"
             
             definition = ""
@@ -58,6 +57,30 @@ class DBReader
 
         break if not @running
       end
+
+      # Getting tooling data
+      begin
+        tools = QUPID::ToolDetail.all
+        tools.to_a.each do |tool|
+          logger.debug "Checking order: #{tool.tool_item_id} sid: #{tool.sid}"
+          if new_or_changed("CuttingTool:#{tool.sid}")
+            logger.info "Adding tool #{tool.tool_item_id} sid: #{tool.sid}"
+            
+            tool_details = ""
+            uuid = CuttingTool::write_cutting_tool(tool, tool_details)
+            Collector.post_asset(uuid, "CuttingToolArchetype", tool_details)
+            
+            @cache[tool.sid] = tool
+          end
+        end
+      rescue
+        logger.error "Cannot get tools from database: #{$!}"
+        logger.error $!.backtrace.join("\n")
+
+        break if not @running
+      end
+
+      
       logger.info "Reader sleeping 60 seconds"
       sleep 60
     end

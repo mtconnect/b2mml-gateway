@@ -1,4 +1,4 @@
-<b:B2mmlProductionSchedule assetId='a760e8cd-02a2-553c-a05b-0dff28aff8d4' timestamp='2017-07-18T22:46:00Z' deviceUuid='device'>
+<b:B2mmlProductionSchedule assetId='a760e8cd-02a2-553c-a05b-0dff28aff8d4' timestamp='2017-08-10T09:35:49Z' deviceUuid='device'>
   <AssetArchetypeRef assetType='b:B2mmlProductDefinition' assetId='46669aae-11f6-5d2a-b8d1-72d0a6ee4cb2'/>
   <Targets>
     <Target targetId='WC81-SS' type='DEVICE'>
@@ -25,11 +25,11 @@
     <ProductionRequest>
       <ID>M17-10003</ID>
       <Description>Sprocket Assy, Rev. 00 A/W, Ring, Sprocket 5T-42X146</Description>
-      <StartTime>2017-01-06T00:00:00-07:00</StartTime>
-      <EndTime>2017-01-13T00:00:00-07:00</EndTime>
+      <StartTime>2017-01-06T00:00:00+01:00</StartTime>
+      <EndTime>2017-01-13T00:00:00+01:00</EndTime>
       <SegmentRequirement>
         <ProductSegmentID>PARC-0001 </ProductSegmentID>
-        <LatestEndTime>2017-01-13T00:00:00-07:00</LatestEndTime>
+        <LatestEndTime>2017-01-13T00:00:00+01:00</LatestEndTime>
         <Duration>P2DT23H30M</Duration>
         <MaterialProducedRequirement>
           <Quantity>

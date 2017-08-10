@@ -8,22 +8,22 @@ module CuttingTool
   NameSpace_CuttingTool = UUID.create_sha1("urn:mtonnect.org:CuttingTool", UUID::NameSpace_OID)
 
   def self.create_cutting_tool_asset_id(tool_id)
-    UUID.create_sha1(tool_id, NameSpace_CuttingTool)
+    UUID.create_sha1(tool_id.to_s, NameSpace_CuttingTool)
   end
 
-  def self.write_cutting_tool(details, device, io)
+  def self.write_cutting_tool(details, io)
     document = REXML::Document.new
 
-    asset = document.add_element("CuttingTool")
-    uuid = create_cutting_tool_asset_id(details.instance_id || details.sid.to_s)
+    asset = document.add_element("CuttingToolArchetype")
+    uuid = create_cutting_tool_asset_id(details.instance_id || details.sid)
     asset.add_attribute("assetId", uuid)
     asset.add_attribute("timestamp", Time.now.utc.iso8601)
-    asset.add_attribute("deviceUuid", device)
+    asset.add_attribute("deviceUuid", 'itamco_Preseter_604778')
     asset.add_attribute("toolId", details.tool_no)
-    asset.add_attribute("serialNumber", details.instance_id)
+    asset.add_attribute("serialNumber", details.instance_id || details.sid)
 
     life = asset.add_element("CuttingToolLifeCycle")
-    life.add_element("Description").text = details.tool_description
+    life.add_element("Description").text = "#{details.tool_item_id} #{details.tool_description}"
     
     # Need tool life definition...
     # asset.add_element("ToolLife")
@@ -37,7 +37,7 @@ module CuttingTool
 		length = measurements.add_element("OverallToolLength")
 		length.add_attribute("minimum", details.tool_length_min)
 		length.add_attribute("code", "OAL")
-    end
+        end
 	if details.max_depth_cut
 		depth = measurements.add_element("DepthOfCutMax")
 		depth.add_attribute("code", "APMX")
