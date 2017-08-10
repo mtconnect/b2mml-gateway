@@ -1,11 +1,17 @@
-production: &prod
+production:
+  adapter: 'tinytds'
+  host: 'VSV-SQL12-05'
+  database: 'QUPID'
+  username: 'vimana'
+  password: 'password'
+
+debug:
   adapter: 'tinytds'
   host: 'localhost'
   database: 'QUPID'
   username: 'vimana'
   password: 'password'
 
-debug: *prod
 
 test:
   adapter: 'tinytds'

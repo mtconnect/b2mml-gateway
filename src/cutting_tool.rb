@@ -14,12 +14,12 @@ module CuttingTool
   def self.write_cutting_tool(details, device, io)
     document = REXML::Document.new
 
-    asset = def_document.add_element("CuttingTool")
-    uuid = create_cutting_tool_asset_id(details.tool_item_id)
+    asset = document.add_element("CuttingTool")
+    uuid = create_cutting_tool_asset_id(details.instance_id || details.sid.to_s)
     asset.add_attribute("assetId", uuid)
     asset.add_attribute("timestamp", Time.now.utc.iso8601)
     asset.add_attribute("deviceUuid", device)
-    asset.add_attribute("toolId", details.tool_item_id)
+    asset.add_attribute("toolId", details.tool_no)
     asset.add_attribute("serialNumber", details.instance_id)
 
     life = asset.add_element("CuttingToolLifeCycle")
@@ -31,24 +31,30 @@ module CuttingTool
     life.add_element("ProgramToolNumber").text = details.tool_no
     life.add_element("ConnectionCodeMachineSide").text = details.holder_item_id
 
-    measurements = life.add_element('Measurements')
-    length = measurements.add_element("OverallToolLength")
-    length.add_attribute("minimum", details.tool_length_min)
-    length.add_attribute("code") = "OAL"
-    
-    depth = measurements.add_element("DepthOfCutMax")
-    depth.add_attribute("code") = "APMX"
-    depth.add_attribute("maximum") = details.max_depth_cut
+	measurements = life.add_element('Measurements')
 
-    diameter = measurements.add_element("CuttingDiameterMax")
-    diameter.add_attribute("code") = "DC"
-    diameter.add_attribute("nominal") = details.diameter_cutting
-
+	if details.tool_length_min
+		length = measurements.add_element("OverallToolLength")
+		length.add_attribute("minimum", details.tool_length_min)
+		length.add_attribute("code", "OAL")
+    end
+	if details.max_depth_cut
+		depth = measurements.add_element("DepthOfCutMax")
+		depth.add_attribute("code", "APMX")
+		depth.add_attribute("maximum", details.max_depth_cut)
+	end
+	
+	if details.diameter_cutting
+		diameter = measurements.add_element("CuttingDiameterMax")
+		diameter.add_attribute("code", "DC")
+		diameter.add_attribute("nominal", details.diameter_cutting)
+	end
+	
     items = life.add_element("CuttingItems")
     items.add_attribute("count", "1")
-    item = items.add_eleemnt("CuttingItem")
-    item.add_attribute("itemId", details.insert_id)
-    item.add_element("Description").text = details.insert_item_id
+    item = items.add_element("CuttingItem")
+    item.add_attribute("itemId", details.insert_item_id)
+    item.add_element("Description").text = details.insert_id
 
     form = REXML::Formatters::Pretty.new
     form.compact = true
