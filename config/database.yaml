@@ -2,8 +2,6 @@ production:
   adapter: 'tinytds'
   host: 'VSV-SQL12-05'
   database: 'QUPID'
-  username: 'vimana'
-  password: 'password'
 
 debug:
   adapter: 'tinytds'
@@ -11,7 +9,6 @@ debug:
   database: 'QUPID'
   username: 'vimana'
   password: 'password'
-
 
 test:
   adapter: 'tinytds'

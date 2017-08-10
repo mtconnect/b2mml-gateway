@@ -26,7 +26,7 @@ module CuttingTool
     if details.delete_sid || details.delete_date
       asset.add_attributee("removed", "true")
     end
-
+    
     life = asset.add_element("CuttingToolLifeCycle")
     life.add_element("Description").text = "#{details.tool_item_id} #{details.tool_description}"
     
@@ -37,7 +37,7 @@ module CuttingTool
     life.add_element("ConnectionCodeMachineSide").text = details.holder_item_id
 
     measurements = life.add_element('Measurements')
-
+    
     if details.tool_length_min
       length = measurements.add_element("OverallToolLength")
       length.add_attribute("minimum", details.tool_length_min)
