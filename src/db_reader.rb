@@ -120,7 +120,7 @@ class DBReader
       end
 
       
-      logger.info "Reader sleeping 60 seconds"
+      logger.info "Reader sleeping 20 seconds"
       sleep 20
     end
 

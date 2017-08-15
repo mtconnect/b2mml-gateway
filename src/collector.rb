@@ -243,7 +243,7 @@ class Collector
         logger.info "#{@name} (#{@url}) Time to parse: #{dt} (processed #{count} at #{(count/dt).to_i} events/second) - QL: #{@@queue.length}"
         write_recovery
       else
-        logger.info "#{@name} (#{@url}) Recovering previous document at #{nxt} currently at #{@next}"
+        logger.info "#{@name} (#{@url}) No new data received, currently at #{@next}"
       end
     end
     true
