@@ -37,6 +37,8 @@ class DBReader
     else
       logger.info "***** New tool: #{tool.sid}"
     end
+    
+    return changed
   end
 
   def order_changed(order)
@@ -99,7 +101,7 @@ class DBReader
       begin
         tools = QUPID::ToolDetail.all
         tools.to_a.each do |tool|
-          logger.debug "Checking order: #{tool.tool_item_id} sid: #{tool.sid}"
+          logger.debug "Checking tool: #{tool.tool_item_id} sid: #{tool.sid}"
           if tool_changed(tool)
             logger.info "Adding tool #{tool.tool_item_id} sid: #{tool.sid}"
             
