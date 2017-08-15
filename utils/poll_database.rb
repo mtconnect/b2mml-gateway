@@ -11,8 +11,7 @@ require 'collector'
 # collector = Collector.new('test', 'http://10.211.55.2:5000/', nil, '000')
 output_dir = File.join(File.dirname(__FILE__), '..', 'output')
 
-today = Date.today
-
+=begin
 # orders = QUPID::Order.where { item_id.like  'PARC%' }
 orders = QUPID::Order.where { item_id.like  'PARC%' }
 orders.to_a.each do |order|
@@ -37,9 +36,10 @@ orders.to_a.each do |order|
     p t
   end
 end
+=end
 
 QUPID::ToolDetail.each do |t|
 	File.open("Tool_#{t.sid}.xml", "w") do |f|
-		CuttingTool::write_cutting_tool(t, "Presetter", f)
+		CuttingTool::write_cutting_tool(t, f)
 	end
 end

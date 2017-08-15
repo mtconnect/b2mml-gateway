@@ -19,8 +19,9 @@ module CuttingTool
     asset.add_attribute("assetId", uuid)
     asset.add_attribute("timestamp", Time.now.utc.iso8601)
     asset.add_attribute("deviceUuid", 'itamco_Preseter_604778')
-    asset.add_attribute("toolId", details.tool_no)
+    asset.add_attribute("toolId", details.sid)
     asset.add_attribute("serialNumber", details.instance_id || details.sid)
+    asset.add_element("Description").text = "#{details.tool_item_id} #{details.tool_description}"
 
     # Mark as removed if the asset has either a delete sid or date
     if details.delete_sid || details.delete_date
@@ -28,13 +29,12 @@ module CuttingTool
     end
     
     life = asset.add_element("CuttingToolLifeCycle")
-    life.add_element("Description").text = "#{details.tool_item_id} #{details.tool_description}"
     
     # Need tool life definition...
     # asset.add_element("ToolLife")
     
     life.add_element("ProgramToolNumber").text = details.tool_no
-    life.add_element("ConnectionCodeMachineSide").text = details.holder_item_id
+    life.add_element("ConnectionCodeMachineSide").text = details.holder_item_id if details.holder_item_id
 
     measurements = life.add_element('Measurements')
     
