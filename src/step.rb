@@ -46,6 +46,10 @@ class STEP
           
           logger.info "Posting STEP file #{uuid}"
           Collector.post_asset(uuid, "AP242", "itamco_QUPID", step)
+          
+          #File.open("#{File.basename(f, '.stp')}.xml", 'w') do |o|
+          #  o.write(step)
+          #end
 
           @files[f] = File.stat(f).mtime
         end
@@ -72,10 +76,14 @@ class STEP
     asset.add_attribute("assetId", uuid)
     asset.add_attribute("timestamp", Time.now.utc.iso8601)
     asset.add_attribute("deviceUuid", 'itamco_QUPID_6ee5c9')
-    asset.add_element("Description").text = file_name
+    asset.add_element("Description").text = base
 
     content = asset.add_element("Content")
     content.text = REXML::CData.new(File.read(file_name))
+    
+    form = REXML::Formatters::Pretty.new
+    form.compact = true
+    form.write(document, io)
 
     return uuid
   end

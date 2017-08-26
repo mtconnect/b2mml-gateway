@@ -15,6 +15,7 @@
 require 'configuration'
 require 'collector'
 require 'db_reader'
+require 'step'
 
 module Main
   def Main.start
