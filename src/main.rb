@@ -43,6 +43,10 @@ module Main
       Logging.logger.debug "Starting DB Reader"
       DBReader.instance.start()
     end
+
+    Logging.logger.info "Starting STEP"
+    @step = STEP.new
+    @step.start
     
     Collector.sample_queue
   end
@@ -52,6 +56,8 @@ module Main
     Collector.signal_queue
     DBReader.instance.stop
     @threads.each { |t| t.join(2) }
+    @step.stop
+    @step = nil
   end
 end
 

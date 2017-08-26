@@ -14,7 +14,7 @@ module CuttingTool
   def self.write_cutting_tool(details, io)
     document = REXML::Document.new
 
-    asset = document.add_element("CuttingToolArchetype")
+    asset = document.add_element("CuttingTool")
     uuid = create_cutting_tool_asset_id(details.instance_id || details.sid)
     asset.add_attribute("assetId", uuid)
     asset.add_attribute("timestamp", Time.now.utc.iso8601)
@@ -29,6 +29,9 @@ module CuttingTool
     end
     
     life = asset.add_element("CuttingToolLifeCycle")
+
+    status = life.add_element('CutterStatus')
+    status.add_element('Status').text = 'NEW'
     
     # Need tool life definition...
     # asset.add_element("ToolLife")
