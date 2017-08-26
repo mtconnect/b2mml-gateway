@@ -45,7 +45,7 @@ class STEP
           uuid = write_step_asset(f, step)
           
           logger.info "Posting STEP file #{uuid}"
-          Collector.post_asset(uuid, "AP242", "itamco_QUPID", step)
+          Collector.post_asset(uuid, "AP242", "itamco_QUPID_6ee5c9", step)
           
           #File.open("#{File.basename(f, '.stp')}.xml", 'w') do |o|
           #  o.write(step)
@@ -76,6 +76,7 @@ class STEP
     asset.add_attribute("assetId", uuid)
     asset.add_attribute("timestamp", Time.now.utc.iso8601)
     asset.add_attribute("deviceUuid", 'itamco_QUPID_6ee5c9')
+    
     asset.add_element("Description").text = base
 
     content = asset.add_element("Content")
