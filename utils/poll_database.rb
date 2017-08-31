@@ -7,6 +7,7 @@ require 'configuration.rb'
 require 'b2mml'
 require 'cutting_tool'
 require 'collector'
+require 'tools'
 
 # collector = Collector.new('test', 'http://10.211.55.2:5000/', nil, '000')
 output_dir = File.join(File.dirname(__FILE__), '..', 'output')
@@ -38,8 +39,10 @@ orders.to_a.each do |order|
 end
 =end
 
-QUPID::ToolDetail.each do |t|
-	File.open("Tool_#{t.sid}.xml", "w") do |f|
-		CuttingTool::write_cutting_tool(t, f)
-	end
-end
+#QUPID::ToolDetail.each do |t|
+#	File.open("Tool_#{t.sid}.xml", "w") do |f|
+#		CuttingTool::write_cutting_tool(t, f)
+#	end
+#end
+
+

@@ -1,65 +1,40 @@
 
 require 'rexml/document'
 require 'ruby-duration'
+require 'directory_scanner'
 require 'uuid'
-
-class STEP
+ 
+class STEP < DirectoryScanner
   include Logging
   
   NameSpace_MTConnect = UUID.create_sha1("urn:mtconnect.org", UUID::NameSpace_OID)
   NameSpace_ISO10303 = UUID.create_sha1("http://www.iso.org/ISO-10303", UUID::NameSpace_URL)
 
-  @@dir = File.join(File.dirname(__FILE__), "../step")
 
   def initialize
-    @files = {}
-    @running = false
-    
     doc = YAML.load_file("#{$config_dir}design.yaml")
     if doc.include?('directory')
-      @@dir = doc['directory']
+      dir = doc['directory']
+    else
+      dir = File.join(File.dirname(__FILE__), "../step")      
     end
 
-    @directory = File.expand_path(@@dir)
-    logger.info "Scanning directory for STEP files: #{@directory}"    
+    super(dir, "*.stp")
   end
 
-  def start
-    logger.info "Starting STEP scanner"
-    @thread = Thread.new do
-      scan_directory
-    end
-  end
-
-  def stop
-    @running = false
-  end
-
-  def scan_directory
-    @running = true
-    logger.info "Starting scanner"
-    while @running
-      Dir["#{@directory}/*.stp"].each do |f|
-        if !@files.include?(f) or @files[f] != File.stat(f).mtime
-          step = ""
-          uuid = write_step_asset(f, step)
-          
-          logger.info "Posting STEP file #{uuid}"
-          Collector.post_asset(uuid, "AP242", "itamco_QUPID_6ee5c9", step)
-          
-          #File.open("#{File.basename(f, '.stp')}.xml", 'w') do |o|
-          #  o.write(step)
-          #end
-
-          @files[f] = File.stat(f).mtime
-        end
-      end
-        
-      sleep 10
-    end
-
+  def process_file(f)
+    step = ""
+    uuid = write_step_asset(f, step)
+    
+    logger.info "Posting STEP file #{uuid}"
+    Collector.post_asset(uuid, "AP242", "itamco_QUPID_6ee5c9", step)
+    
+    #File.open("#{File.basename(f, '.stp')}.xml", 'w') do |o|
+    #  o.write(step)
+    #end
+    
   rescue
-    logger.error "Scanner failed: #{$!}"
+    logger.error "Process File failed: #{$!}"
     logger.error $!.backtrace.join("\n")
   end
 

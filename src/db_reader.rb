@@ -68,57 +68,10 @@ class DBReader
     
     @running = true
     while @running
-      logger.info "Requesting orders for PARC"
+      load_orders
+      # load_tools
 
-      begin
-        orders = QUPID::Order.where { item_id.like  'PARC%' }
-        orders.to_a.each do |order|
-          logger.debug "Checking order: #{order.mo_id}"
-          if order_changed(order)
-            logger.info "Adding order #{order.mo_id} for job #{order.job_id}"
-            
-            definition = ""
-            uuid = B2MML::write_definition(order, definition)
-            logger.info "Posting Definition #{uuid}"
-            Collector.post_asset(uuid, "b:B2mmlProductDefinition", "itamco_QUPID", definition)
-            
-            schedule = ""
-            uuid = B2MML::write_schedule(order, schedule)
-            logger.info "Posting Schedule #{uuid}"
-            Collector.post_asset(uuid, "b:B2mmlProductionSchedule", "itamco_QUPID", schedule)
-            
-            @order_cache[order.mo_id] = order
-          end
-        end
-      rescue
-        logger.error "Cannot get orders from database: #{$!}"
-        logger.error $!.backtrace.join("\n")
-
-        break if not @running
-      end
-
-      # Getting tooling data
-      begin
-        tools = QUPID::ToolDetail.all
-        tools.to_a.each do |tool|
-          logger.debug "Checking tool: #{tool.tool_item_id} sid: #{tool.sid}"
-          if tool_changed(tool)
-            logger.info "Adding tool #{tool.tool_item_id} sid: #{tool.sid}"
-            
-            tool_details = ""
-            uuid = CuttingTool::write_cutting_tool(tool, tool_details)
-            Collector.post_asset(uuid, "CuttingToolArchetype", "itamco_Presetter", tool_details)
-            
-            @tool_cache[tool.sid] = tool
-          end
-        end
-      rescue
-        logger.error "Cannot get tools from database: #{$!}"
-        logger.error $!.backtrace.join("\n")
-
-        break if not @running
-      end
-
+      break unless @running
       
       logger.info "Reader sleeping 20 seconds"
       sleep 20
@@ -129,6 +82,53 @@ class DBReader
   rescue
     logger.error "DB Reader thread died.: #{$!}"
     logger.error $!.backtrace.join("\n")
+  end
+
+
+  def load_orders
+      logger.info "Requesting orders for PARC"
+
+      orders = QUPID::Order.where { item_id.like  'PARC%' }
+      orders.to_a.each do |order|
+        logger.debug "Checking order: #{order.mo_id}"
+        if order_changed(order)
+          logger.info "Adding order #{order.mo_id} for job #{order.job_id}"
+          
+          definition = ""
+          uuid = B2MML::write_definition(order, definition)
+          logger.info "Posting Definition #{uuid}"
+          Collector.post_asset(uuid, "b:B2mmlProductDefinition", "itamco_QUPID_6ee5c9", definition)
+          
+          schedule = ""
+          uuid = B2MML::write_schedule(order, schedule)
+          logger.info "Posting Schedule #{uuid}"
+          Collector.post_asset(uuid, "b:B2mmlProductionSchedule", "itamco_QUPID_6ee5c9", schedule)
+          
+          @order_cache[order.mo_id] = order
+        end
+      end
+  rescue
+    logger.error "Cannot get orders from database: #{$!}"
+    logger.error $!.backtrace.join("\n")    
+  end
+
+  def load_tools
+    tools = QUPID::ToolDetail.all
+    tools.to_a.each do |tool|
+      logger.debug "Checking tool: #{tool.tool_item_id} sid: #{tool.sid}"
+      if tool_changed(tool)
+        logger.info "Adding tool #{tool.tool_item_id} sid: #{tool.sid}"
+        
+        tool_details = ""
+        uuid = CuttingTool::write_cutting_tool(tool, tool_details)
+        Collector.post_asset(uuid, "CuttingToolArchetype", "itamco_Presetter_604778", tool_details)
+        
+        @tool_cache[tool.sid] = tool
+      end
+    end
+  rescue
+    logger.error "Cannot get tools from database: #{$!}"
+    logger.error $!.backtrace.join("\n")    
   end
 
   def stop

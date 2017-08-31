@@ -16,6 +16,7 @@ require 'configuration'
 require 'collector'
 require 'db_reader'
 require 'step'
+require 'tools'
 
 module Main
   def Main.start
@@ -48,6 +49,9 @@ module Main
     Logging.logger.info "Starting STEP"
     @step = STEP.new
     @step.start
+
+    @tools = Tools.new
+    @tools.start
     
     Collector.sample_queue
   end
@@ -59,6 +63,9 @@ module Main
     @threads.each { |t| t.join(2) }
     @step.stop
     @step = nil
+
+    @tools.stop
+    @tools = nil
   end
 end
 

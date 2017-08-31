@@ -26,6 +26,7 @@ class Collector
   attr_accessor :next
 
   include Logging
+  
   @@mutex = Mutex.new
   @@queue = Queue.new
   @@condition = ConditionVariable.new
@@ -117,6 +118,7 @@ class Collector
     end
   end
 
+  
   def self.post_asset(uuid, type, device, data)
     unless @@singleton.nil?
       @@singleton.post_asset(uuid, type, device, data)
@@ -125,14 +127,19 @@ class Collector
     end
   end
 
+  @@mutex = Mutex.new
+
   def post_asset(uuid, type, device, data)
-    http, path, dev = http_client
-    resp = http.post("#{path}asset/#{uuid}?type=#{type}&device=#{device}", data, { 'ContentType' => 'text/xml' })
-    if resp.code == '200'
-      logger.info "post returned: #{resp.body}"
-    else
-      logger.error "Could not post asset: #{asset_id} – #{resp.code}"
-      nil
+    @@mutex.synchronize do 
+      http, path, dev = http_client
+      puts "Posting #{type} #{uuid}"
+      resp = http.post("#{path}asset/#{uuid}?type=#{type}&device=#{device}", data, { 'ContentType' => 'text/xml' })
+      if resp.code == '200'
+        logger.info "post returned: #{resp.body}"
+      else
+        logger.error "Could not post asset: #{asset_id} – #{resp.code}"
+        nil
+      end
     end
   end
                                            
