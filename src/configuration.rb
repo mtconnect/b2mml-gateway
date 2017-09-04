@@ -23,6 +23,7 @@ if RUBY_PLATFORM =~ /mingw32/
 end
 
 $gateway_env ||= ENV['GATEWAY_ENV'] && ENV['GATEWAY_ENV'].to_sym || :production
+puts "Starting with environment: #{$gateway_env}"
 
 require 'logging'
 

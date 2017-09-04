@@ -10,7 +10,7 @@ module CuttingTool
     UUID.create_sha1(tool_id.to_s, NameSpace_CuttingTool)
   end
 
-  def self.write_cutting_tool(details, io, archetype = nil)
+  def self.write_cutting_tool(details, io, id, archetype = nil)
     document = REXML::Document.new
 
     unless archetype
@@ -19,19 +19,19 @@ module CuttingTool
       asset = document.add_element("CuttingTool")
     end
 
-    uuid = create_cutting_tool_asset_id(details.instance_id || details.sid)
+    uuid = create_cutting_tool_asset_id(id)
     asset.add_attribute("assetId", uuid)
     asset.add_attribute("timestamp", Time.now.utc.iso8601)
-    asset.add_attribute("deviceUuid", 'itamco_Preseter_604778')
-    asset.add_attribute("toolId", details.sid)
-    asset.add_attribute("serialNumber", details.instance_id || details.sid)
+    asset.add_attribute("deviceUuid", 'itamco_Presetter_514301')
+    asset.add_attribute("toolId", id)
+    asset.add_attribute("serialNumber", details.sid)
 
     if archetype
       ref = asset.add_element("AssetArchetypeRef")
       ref.add_attribute("assetType", "CuttingToolArchetype")
       ref.add_attribute("assetId", archetype)
     end
-    asset.add_element("Description").text = "#{details.tool_item_id} #{details.tool_description}"
+    asset.add_element("Description").text = "#{details.tool_id}"
 
 
     # Mark as removed if the asset has either a delete sid or date

@@ -50,8 +50,8 @@ module Main
     @step = STEP.new
     @step.start
 
-    @tools = Tools.new
-    @tools.start
+    #@tools = Tools.new
+    #@tools.start
     
     Collector.sample_queue
   end

@@ -37,7 +37,6 @@ class Tools < DirectoryScanner
       post_details(tool, "CuttingTool", arch, "2")
     end
     
-    
   rescue
     logger.error "Process File failed: #{$!}"
     logger.error $!.backtrace.join("\n")

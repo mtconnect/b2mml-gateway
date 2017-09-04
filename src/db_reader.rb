@@ -21,8 +21,8 @@ class DBReader
     @@instance
   end
 
-  def tool_changed(tool)
-    old = @tool_cache[tool.sid]
+  def tool_changed(tool, tid)
+    old = @tool_cache[tid]
     changed = old.nil?
     if old
       tool.columns.each do |col|
@@ -69,7 +69,7 @@ class DBReader
     @running = true
     while @running
       load_orders
-      # load_tools
+      load_tools
 
       break unless @running
       
@@ -113,17 +113,37 @@ class DBReader
   end
 
   def load_tools
-    tools = QUPID::ToolDetail.all
-    tools.to_a.each do |tool|
-      logger.debug "Checking tool: #{tool.tool_item_id} sid: #{tool.sid}"
-      if tool_changed(tool)
-        logger.info "Adding tool #{tool.tool_item_id} sid: #{tool.sid}"
-        
+    machines = { 1046 => "itamco_DMG", 1166 => "itamco_Haas" } 
+
+    
+    tools = QUPID::WCTool.all
+    sets = combine_tools(tools.to_a)
+    sets.each do |k, list|
+      puts "****** #{k} : #{list.length}"
+      
+      # Create archetype and then instances by wc
+      arch = nil
+      tool, = list
+      if tool_changed(tool, tool.group)
         tool_details = ""
-        uuid = CuttingTool::write_cutting_tool(tool, tool_details)
-        Collector.post_asset(uuid, "CuttingToolArchetype", "itamco_Presetter_604778", tool_details)
-        
-        @tool_cache[tool.sid] = tool
+        puts "Posting archetype for #{tool.group}"
+        arch = CuttingTool::write_cutting_tool(tool, tool_details, tool.group)
+        Collector.post_asset(arch, "CuttingToolArchetype", "itamco_Presetter", tool_details)        
+
+        @tool_cache[tool.group] = tool            
+      end
+      
+      list.each do |tool|
+        logger.debug "Checking tool: #{tool.group} sid: #{tool.key}"
+        if tool_changed(tool, tool.sid)
+          logger.info "Adding tool #{tool.group} sid: #{tool.key} for #{machines[tool.work_centers_sid]}"
+          
+          tool_details = ""
+          uuid = CuttingTool::write_cutting_tool(tool, tool_details, tool.key, arch)
+          Collector.post_asset(uuid, "CuttingTool", machines[tool.work_centers_sid], tool_details)
+          
+          @tool_cache[tool.key] = tool
+        end
       end
     end
   rescue
@@ -131,6 +151,15 @@ class DBReader
     logger.error $!.backtrace.join("\n")    
   end
 
+  def combine_tools(tools)
+    tool_set = Hash.new { |h, k| h[k] = [] }
+    tools.each do |tool|      
+      tool_set[tool.group] << tool
+    end
+
+    p tool_set
+    tool_set
+  end
   def stop
     @running = false
   end

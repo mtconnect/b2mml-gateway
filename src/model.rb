@@ -39,6 +39,19 @@ module QUPID
     one_to_one :tools_bot, :key => :manufacturing_tools_bot_sid, :primary_key => :sid
   end
 
+  class WCTool < Sequel::Model(:work_center_tools)
+    set_primary_key :sid
+
+    def group
+      self.tool_description
+    end
+
+    def key
+      self.sid
+    end
+    
+  end
+
   class Schedule < Sequel::Model(:manufacturing_schedule)
     set_primary_key :sid
     one_to_one :order, :key => :mo_id, :primary_key => :mo_id

@@ -164,3 +164,34 @@ CREATE TABLE manufacturing_tool_details (
 CREATE UNIQUE INDEX mtd_i1 ON manufacturing_tool_details (sid DESC);
 CREATE INDEX mtd_i2 ON manufacturing_tool_details (manufacturing_tools_bot_sid DESC);
 CREATE INDEX mtd_i3 ON manufacturing_tool_details (tool_no DESC);
+
+DROP TABLE IF EXISTS work_center_tools;
+CREATE TABLE work_center_tools (
+       sid              int NOT NULL,
+       work_centers_sid  int NOT NULL,
+       tool_no          varchar(31) NOT NULL,
+       tool_item_id     varchar(31) NULL,
+       instance_id      int NOT,
+       tool_id		varchar(31) NOT NULL,
+       tool_description varchar(256) NULL,
+       tool_type        varchar(31) NULL,
+       tool_length_min  float NULL,
+       insert_item_id   varchar(31) NULL,
+       insert_id        varchar(31) NULL,
+       holder_item_id   varchar(31) NULL,
+       holder_id        varchar(31) NULL,
+       max_depth_cut    float NULL,
+       diameter_cutting float NULL,
+
+       create_sid       int NULL,
+       create_date      smalldatetime NULL,
+       change_sid       int NULL,
+       change_date      smalldatetime NULL,
+       change_count     int NULL,
+       delete_sid       int NULL,
+       delete_date      smalldatetime NULL
+);
+
+CREATE UNIQUE INDEX wct_i1 ON work_center_tools (sid DESC);
+CREATE INDEX wct_i2 ON work_center_tools (manufacturing_tools_bot_sid DESC);
+CREATE INDEX wct_i3 ON work_center_tools (tool_no DESC);
