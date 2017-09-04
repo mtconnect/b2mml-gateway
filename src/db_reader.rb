@@ -157,7 +157,6 @@ class DBReader
       tool_set[tool.group] << tool
     end
 
-    p tool_set
     tool_set
   end
   def stop
