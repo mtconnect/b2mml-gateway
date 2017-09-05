@@ -2,6 +2,7 @@
 require 'rexml/document'
 require 'ruby-duration'
 require 'uuid'
+require 'time'
 
 module B2MML
   NameSpace_MTConnect = UUID.create_sha1("urn:mtconnect.org", UUID::NameSpace_OID)
@@ -77,15 +78,18 @@ module B2MML
 
     schedule.add_element('ID').text = order.mo_id
 
+
+    due_date = Time.new(2017,9,15,17) # order.end_date
+
     request = schedule.add_element('ProductionRequest')
     request.add_element('ID').text = order.mo_id
     request.add_element('Description').text = "#{order.item_description} #{order.drawing_description}"
     request.add_element('StartTime').text = order.start_date.iso8601
-    request.add_element('EndTime').text = order.end_date.iso8601
+    request.add_element('EndTime').text = due_date.iso8601
 
     segment = request.add_element('SegmentRequirement')
     segment.add_element('ProductSegmentID').text = order.item_id
-    segment.add_element('LatestEndTime').text = order.end_date.iso8601
+    segment.add_element('LatestEndTime').text = due_date.iso8601
 
     hours = processes.inject(0) { |t, proc| t + proc.run_hrs + proc.setup_hrs }
     
