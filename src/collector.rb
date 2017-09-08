@@ -118,6 +118,25 @@ class Collector
     end
   end
 
+  def self.get_assets(type)
+    unless @@singleton.nil?
+      @@singleton.get_assets(type)
+    else
+      logger.error "There is no singleton object"
+    end
+  end
+  
+  def get_assets(type)
+    http, path, device = http_client
+    resp = http.get("#{path}assets?type=#{type}")  
+    if resp.code == '200'
+      resp.body
+    else
+      logger.error "Could not get asset: #{asset_id} – #{resp.code}"
+      nil
+    end
+  end
+
   
   def self.post_asset(uuid, type, device, data)
     unless @@singleton.nil?

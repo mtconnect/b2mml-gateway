@@ -17,6 +17,7 @@ require 'collector'
 require 'db_reader'
 require 'step'
 require 'tools'
+require 'parts'
 
 module Main
   def Main.start
@@ -49,6 +50,9 @@ module Main
     Logging.logger.info "Starting STEP"
     @step = STEP.new
     @step.start
+
+    xml = collector.get_assets('Part')
+    Parts.store_manufacturing_schedule(xml)
 
     #@tools = Tools.new
     #@tools.start

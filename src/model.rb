@@ -55,5 +55,15 @@ module QUPID
   class Schedule < Sequel::Model(:manufacturing_schedule)
     set_primary_key :sid
     one_to_one :order, :key => :mo_id, :primary_key => :mo_id
+
+    def before_create
+      last = Schedule.last
+      max_sid = (last && last.sid) || 0
+
+      puts "****** Setting sid to #{max_sid + 1}"
+      
+      values[:sid] = max_sid + 1
+    end
+
   end
 end

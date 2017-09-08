@@ -21,7 +21,7 @@ module Sample
     doc = REXML::Document.new(xml)
 
     if doc.root.name == 'MTConnectError'
-      doc.each("//Error") do |err|
+      doc.each_element("//Error") do |err|
         if err
           raise StreamError.new("#{err.attributes['errorCode']}: #{err.content}")
         else
@@ -75,18 +75,10 @@ module Sample
       asset_type = event.attributes['assetType']
       Logging.logger.info "Got an asset changed type: #{asset_type} for #{asset_id}"
       case asset_type
-      when 'AP242', 'AP238'
+      when 'Part'
         xml = Collector.get_asset(asset_id)
         if xml
-          Logging.logger.debug "Received body for #{asset_type} #{asset_id}"
-          doc = REXML::Document.new(xml)
-          doc.each_element('//Assets/*') do |asset|
-            file = asset_id
-            Logging.logger.info "Found asset data for #{asset_id}, writing to file: #{file}"
-            File.open(file, 'w') do |f|
-              f.write asset.text
-            end
-          end            
+          Parts.store_manufacturing_schedule(xml)
         end
       else
         Logging.logger.info "Got unknown asset type: #{asset_type}"
