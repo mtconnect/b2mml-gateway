@@ -122,7 +122,7 @@ class Collector
     unless @@singleton.nil?
       @@singleton.get_assets(type)
     else
-      logger.error "There is no singleton object"
+      Logging.logger.error "There is no singleton object"
     end
   end
   

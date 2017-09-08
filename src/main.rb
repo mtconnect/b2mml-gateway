@@ -34,9 +34,12 @@ module Main
 
     Logging.logger.info "Starting agent threads"
     $running = true
-    @threads = doc.map do |name, config|
+	
+	collectors = doc.map do |name, config|
+      Collector.new(name, config['url'], config['filter'], config['device'])
+	end	
+    @threads = collectors.map do |collector|
       Thread.new do
-        collector = Collector.new(name, config['url'], config['filter'], config['device'])
         collector.stream
       end
     end
@@ -51,7 +54,7 @@ module Main
     @step = STEP.new
     @step.start
 
-    xml = collector.get_assets('Part')
+    xml = collectors.first.get_assets('Part')
     Parts.store_manufacturing_schedule(xml)
 
     #@tools = Tools.new
