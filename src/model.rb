@@ -9,6 +9,7 @@ module QUPID
     one_to_many :transactions, key: :mo_id, primary_key: :mo_id
     one_to_many :tools_bots, key: :mo_id , primary_key: :mo_id
     one_to_many :schedules, key: :mo_id , primary_key: :mo_id
+	one_to_many :punches, key: :mo_id, primary_key: :mo_id
   end
   
   class Process < Sequel::Model(:VwGPManufacturingOrderProcesses)
@@ -23,6 +24,12 @@ module QUPID
     
     one_to_one :order, :key => :mo_id, :primary_key => :mo_id
     one_to_one :process, key: [:mo_id, :sequence_id], primary_key: [:mo_id, :sequence_id]  
+  end
+  
+  class Punch < Sequel::Model(:employee_labor_punches)
+    set_primary_key :sid
+	
+    one_to_one :order, :key => :mo_id, :primary_key => :mo_id
   end
 
   class ToolsBot < Sequel::Model(:manufacturing_tools_bot)

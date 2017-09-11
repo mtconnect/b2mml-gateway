@@ -13,6 +13,7 @@ class DBReader
     @running = false
     @tool_cache = Hash.new
     @order_cache = Hash.new
+	@transaction_cache = Hash.new
   end
 
   @@instance = DBReader.new
@@ -62,6 +63,28 @@ class DBReader
 
     return changed
   end
+  
+  def punch_changed(punch)
+    old = @transaction_cache[punch.sid]
+    changed = old.nil?
+    if old
+      # Do field-wise compare
+      punch.columns.each do |col|
+        changed = old.send(col) != punch.send(col)
+        break if changed
+      end
+
+      if changed
+        logger.info "******* Punch has changed: #{punch.sid}"
+      else
+        logger.info "******* Punch has not changed: #{punch.sid}"
+      end
+    else
+      logger.info "**** New Punch: #{punch.sid}"
+    end
+
+    return changed
+  end
 
   def start
     logger.info "Starting Polling Database"
@@ -83,7 +106,66 @@ class DBReader
     logger.error "DB Reader thread died.: #{$!}"
     logger.error $!.backtrace.join("\n")
   end
+  
+  def update_part_asset(punch)
+   puts "Getting asset for #{punch.mo_id}"
+	asset = Collector.get_asset(punch.mo_id)
+	if asset
+	  doc = REXML::Document.new(asset)
+	  part = doc.elements["//Part"]
+	  
+	  events =  part.elements["//ProcessEvents"]
+	  unless events
+		events = part.add_element('ProcessEvents')
+	  end
+	  event = events.add_element('ProcessEvent')
+	  event.add_attribute("stepIdRef", punch.sequence_id)
+	  if punch.done_flag == 0
+	    event.add_attribute("state", "IN_PROCESS")
+	  else
+	    event.add_attribute("state", "COMPLETE")
+	  end
+	  if punch.wc_id == 'M4144'
+		event.add_attribute('targetIdRef', 'itamco_Haas')
+	  elsif punch.wc_id == 'M4143'
+		event.add_attribute('targetIdRef', 'itamco_DMG')
+	  end
+	  event.add_attribute("timestamp", punch.create_date.utc.iso8601)
+	  event.add_attribute("routingIdRef", "1")
+	  
+	  form = REXML::Formatters::Pretty.new
+	  form.compact = true
+	  io = ""
+	  form.write(part, io)
+	  
+      Collector.post_asset(punch.mo_id, "Part", "itamco_QUPID", io)
+	else
+	  logger.error "Cannot find Part asset for #{punch.mo_id}"
+	end
+  rescue
+    logger.error "Cannot get transactions for order #{punch.mo_id} from database: #{$!}"
+    logger.error $!.backtrace.join("\n")    
+    puts $!	
+	puts $!.backtrace.join("\n")
+  end
 
+  def check_transactions(order)
+    punches = order.punches
+	punches.to_a.each do |punch|
+	  logger.debug "Checking transaction: #{punch.eid}"
+	  if punch_changed(punch)
+	    # Get the asset
+		update_part_asset(punch)
+		
+		@transaction_cache[punch.eid] = punch
+	  end
+	end
+  rescue
+    logger.error "Cannot get transactions for order #{order.mo_id} from database: #{$!}"
+    logger.error $!.backtrace.join("\n")  
+    puts $!	
+	puts $!.backtrace.join("\n")
+  end
 
   def load_orders
       logger.info "Requesting orders for PARC"
@@ -102,10 +184,12 @@ class DBReader
           schedule = ""
           uuid = B2MML::write_schedule(order, schedule)
           logger.info "Posting Schedule #{uuid}"
-          Collector.post_asset(uuid, "b:B2mmlProductionSchedule", "itamco_QUPID_6ee5c9", schedule)
+          Collector.post_asset(uuid, "b:B2mmlProductionSchedule", "itamco_QUPID", schedule)
           
           @order_cache[order.mo_id] = order
         end
+		
+		check_transactions(order)
       end
   rescue
     logger.error "Cannot get orders from database: #{$!}"

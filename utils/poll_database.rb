@@ -8,36 +8,21 @@ require 'b2mml'
 require 'cutting_tool'
 require 'collector'
 require 'tools'
+require 'db_reader'
 
-# collector = Collector.new('test', 'http://10.211.55.2:5000/', nil, '000')
+collector = Collector.new('test', 'http://10.0.4.227:5000/', nil, 'itamco_Haas')
 output_dir = File.join(File.dirname(__FILE__), '..', 'output')
+reader = DBReader.new
 
-=begin
 # orders = QUPID::Order.where { item_id.like  'PARC%' }
-orders = QUPID::Order.where { item_id.like  'PARC%' }
+orders = QUPID::Order.where { mo_id.like 'M17-10405' }
+p orders.to_a
 orders.to_a.each do |order|
-  puts "**************"
+  p order.punches.to_a
   
-  puts "Writing order: #{order.mo_id}"
-  #p order
-
-  definition = ""
-  definition = File.new("#{order.mo_id}_Definition.xml", 'w')
-  uuid = B2MML::write_definition(order, definition)
-  puts "Posting Definition #{uuid}"
-  # collector.post_asset(uuid, "b:B2mmlProductDefinition", definition)
-
-  schedule = ""
-  schedule = File.new("#{order.mo_id}_Schedule.xml", 'w')
-  uuid = B2MML::write_schedule(order, schedule)
-  puts "Posting Schedule #{uuid}"
-  # collector.post_asset(uuid, "b:B2mmlProductionSchedule", schedule)
-
-  QUPID::ToolDetail.all.each do |t|
-    p t
-  end
+  reader.check_transactions(order)
+  
 end
-=end
 
 #QUPID::ToolDetail.each do |t|
 #	File.open("Tool_#{t.sid}.xml", "w") do |f|
