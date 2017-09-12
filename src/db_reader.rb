@@ -65,6 +65,8 @@ class DBReader
   end
   
   def punch_changed(punch)
+    return true
+  
     old = @transaction_cache[punch.sid]
     changed = old.nil?
     if old
@@ -160,7 +162,7 @@ class DBReader
   end
 
   def check_transactions(order)
-    punches = order.punches # punches_dataset.where { create_date > Time.utc(2017,9,12) }
+    punches = order.punches_dataset.where { create_date > Time.new(2017,9,12,15) }
 	punches.to_a.each do |punch|
 	  logger.debug "Checking transaction: #{punch.sid}"
 	  if punch_changed(punch)
