@@ -18,9 +18,9 @@ reader = DBReader.new
 orders = QUPID::Order.where { mo_id.like 'M17-10405' }
 p orders.to_a
 orders.to_a.each do |order|
-  p order.punches.to_a
-  
-  reader.check_transactions(order)
+  punches = order.punches_dataset.where { create_date > Time.utc(2017,9,12) }
+  p punches.to_a
+  #reader.check_transactions(order)
   
 end
 

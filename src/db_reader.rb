@@ -113,32 +113,42 @@ class DBReader
 	if asset
 	  doc = REXML::Document.new(asset)
 	  part = doc.elements["//Part"]
+	  return unless part
 	  
 	  events =  part.elements["//ProcessEvents"]
-	  unless events
+	  stamps = Hash.new
+	  if events
+		events.each { |e| stamps[e.attributes['timestamp']] = true }
+	  else
 		events = part.add_element('ProcessEvents')
 	  end
-	  event = events.add_element('ProcessEvent')
-	  event.add_attribute("stepIdRef", punch.sequence_id)
-	  if punch.done_flag == 0
-	    event.add_attribute("state", "IN_PROCESS")
+	  ts = punch.create_date.utc.iso8601
+	  unless stamps[ts]
+		  event = events.add_element('ProcessEvent')
+		  event.add_attribute("stepIdRef", punch.sequence_id)
+		  if punch.done_flag == 0
+			event.add_attribute("state", "IN_PROCESS")
+		  else
+			event.add_attribute("state", "COMPLETE")
+		  end
+		  if punch.wc_id == 'M4144'
+			event.add_attribute('targetIdRef', 'itamco_Haas')
+		  elsif punch.wc_id == 'M4143'
+			event.add_attribute('targetIdRef', 'itamco_DMG')
+		  end
+		  event.add_attribute("timestamp", punch.create_date.utc.iso8601)
+		  event.add_attribute("routingIdRef", "1")
+		  
+		  form = REXML::Formatters::Pretty.new
+		  form.compact = true
+		  io = ""
+		  form.write(part, io)
+		  
+		  Collector.post_asset(punch.mo_id, "Part", "itamco_QUPID", io)		  
 	  else
-	    event.add_attribute("state", "COMPLETE")
+	    puts "Duplicate event"
 	  end
-	  if punch.wc_id == 'M4144'
-		event.add_attribute('targetIdRef', 'itamco_Haas')
-	  elsif punch.wc_id == 'M4143'
-		event.add_attribute('targetIdRef', 'itamco_DMG')
-	  end
-	  event.add_attribute("timestamp", punch.create_date.utc.iso8601)
-	  event.add_attribute("routingIdRef", "1")
-	  
-	  form = REXML::Formatters::Pretty.new
-	  form.compact = true
-	  io = ""
-	  form.write(part, io)
-	  
-      Collector.post_asset(punch.mo_id, "Part", "itamco_QUPID", io)
+	  @transaction_cache[punch.sid] = punch
 	else
 	  logger.error "Cannot find Part asset for #{punch.mo_id}"
 	end
@@ -150,14 +160,12 @@ class DBReader
   end
 
   def check_transactions(order)
-    punches = order.punches
+    punches = order.punches # punches_dataset.where { create_date > Time.utc(2017,9,12) }
 	punches.to_a.each do |punch|
-	  logger.debug "Checking transaction: #{punch.eid}"
+	  logger.debug "Checking transaction: #{punch.sid}"
 	  if punch_changed(punch)
 	    # Get the asset
-		update_part_asset(punch)
-		
-		@transaction_cache[punch.eid] = punch
+		update_part_asset(punch)		
 	  end
 	end
   rescue
